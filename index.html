@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Wine Score Inflation — the 100-point scale that isn't</title>
+<meta name="description" content="Across ~130,000 Wine Enthusiast reviews, the famous 100-point scale is really an 8-point one: nothing is published below 80, and 86% of all wines score between 84 and 92. Price buys points with steep diminishing returns, and the reviewer matters as much as the wine." />
+<style>
+  :root{--ink:#1a1a2e;--paper:#FBF8F1;--rule:#E5DCC7;--soft:#6B7280;--accent:#D4A537;--teal:#15868C;--coral:#E0567A;--wine:#7b1733}
+  *{box-sizing:border-box} html,body{margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:Georgia,'Times New Roman',serif;line-height:1.7;font-size:18px}
+  .hero{width:100%;background:#14142b;overflow:hidden}.hero svg{width:100%;height:250px;display:block}
+  .container{max-width:760px;margin:0 auto;padding:40px 24px 80px}
+  .kicker{text-transform:uppercase;letter-spacing:.16em;font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;color:var(--wine);font-weight:700;text-align:center;margin-bottom:14px}
+  h1{font-size:40px;line-height:1.18;text-align:center;margin:0 0 16px}
+  .lede{font-size:21px;color:#33334d;text-align:center;margin:0 auto 6px;max-width:640px}
+  .byline{color:var(--soft);font-style:italic;text-align:center;margin:20px 0 36px}
+  h2{font-size:27px;margin:54px 0 14px;border-bottom:1px solid var(--rule);padding-bottom:8px}
+  p{margin:0 0 18px} a{color:var(--teal)}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:34px 0}
+  .stat{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:22px 14px;text-align:center}
+  .stat .n{font-family:'Helvetica Neue',Arial,sans-serif;font-size:32px;font-weight:800;color:var(--wine);line-height:1}
+  .stat .l{font-size:13px;color:var(--soft);margin-top:8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  figure{margin:32px 0;text-align:center}
+  figure img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:6px;background:#fff}
+  figcaption{font-size:14px;color:var(--soft);font-style:italic;margin-top:10px}
+  .findings{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:22px 30px;margin:30px 0}
+  .findings ul{margin:0;padding-left:20px} .findings li{margin-bottom:11px}
+  .note{background:#fff;border:1px solid var(--rule);border-left:4px solid var(--teal);border-radius:8px;padding:14px 20px;font-size:14.5px;color:#444;font-family:'Helvetica Neue',Arial,sans-serif;margin:24px 0}
+  .footer{text-align:center;color:var(--soft);font-size:14px;margin-top:54px;font-family:'Helvetica Neue',Arial,sans-serif}
+  @media(max-width:560px){h1{font-size:30px}.stats{grid-template-columns:1fr}.hero svg{height:190px}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <svg viewBox="0 0 760 250" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A score bar from 80 to 100 with almost all wines bunched in the middle">
+    <defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c1c3d"/><stop offset="1" stop-color="#101025"/></linearGradient></defs>
+    <rect width="760" height="250" fill="url(#bg)"/>
+    <g transform="translate(80,150)">
+      <line x1="0" y1="0" x2="600" y2="0" stroke="#3a3a63" stroke-width="3"/>
+      <g font-family="Helvetica Neue,Arial" fill="#cbb98a" font-size="14"><text x="-6" y="28">80</text><text x="588" y="28">100</text></g>
+      <rect x="120" y="-60" width="240" height="60" fill="#7b1733" opacity="0.85"/>
+      <g font-family="Helvetica Neue,Arial" fill="#E0567A" font-size="15"><text x="150" y="-72">86% of all wines live here</text></g>
+      <g fill="#D4A537"><circle cx="150" cy="-12" r="4"/><circle cx="200" cy="-22" r="4"/><circle cx="250" cy="-16" r="4"/><circle cx="300" cy="-26" r="4"/><circle cx="330" cy="-14" r="4"/></g>
+    </g>
+  </svg>
+</div>
+<div class="container">
+  <p class="kicker">Data story · ~130,000 wine reviews</p>
+  <h1>Wine Score Inflation</h1>
+  <p class="lede">Wines are rated on a "100-point scale." So why does it feel like everything scores around 90? I ran the numbers on 130,000 professional reviews.</p>
+  <p class="byline">By Jeremy Lee</p>
+
+  <div class="stats">
+    <div class="stat"><div class="n">80</div><div class="l">the hard floor — nothing lower is ever published</div></div>
+    <div class="stat"><div class="n">86%</div><div class="l">of all wines score between 84 and 92</div></div>
+    <div class="stat"><div class="n">3.1 pts</div><div class="l">gap between the most and least generous reviewers</div></div>
+  </div>
+
+  <h2>A 100-point scale that's really an 8-point scale</h2>
+  <p>Wine is scored from 50 to 100, but in practice that scale barely exists. Across ~130,000 Wine Enthusiast reviews, <strong>nothing is published below 80</strong>, the average is 88, and <strong>86% of all wines fall between 84 and 92</strong>. Almost the entire "100-point" range is dead space. When failing grades are never printed and everything clusters in an 8-point band, a high score stops meaning much.</p>
+  <figure><img src="figures/01_distribution.png" alt="Histogram of wine points, floored at 80 and bunched around 88"><figcaption>Every wine's score. A hard wall at 80 and a tight pile around 88 — grade inflation, in one chart.</figcaption></figure>
+
+  <h2>Money buys points — with steep diminishing returns</h2>
+  <p>Price and score are related (correlation 0.61 against log-price), but you pay dearly for each point. A roughly <strong>$10 wine averages about 85 points; a $100 wine averages about 92</strong>. Spending ten times as much buys you, on average, about seven points — and most of those points come early.</p>
+  <figure><img src="figures/02_price_vs_points.png" alt="Average points rising with price on a log scale, then flattening"><figcaption>Average points by price (log scale). The curve rises fast then flattens — diminishing returns on every extra dollar.</figcaption></figure>
+
+  <h2>It's not a "recent vintages are better" effect</h2>
+  <p>You might guess the scores have crept up over time. They haven't: average points are <strong>essentially flat across vintages</strong> (about 0.09 points per decade). The compression isn't a recency trend — it's baked into how the scale is used.</p>
+  <figure><img src="figures/03_by_vintage.png" alt="Average points by vintage, nearly a flat line"><figcaption>Average score by vintage year — basically a flat line. The inflation is structural, not generational.</figcaption></figure>
+
+  <h2>The reviewer matters as much as the wine</h2>
+  <p>Who tastes the wine moves the number. Among the most prolific reviewers, average scores range across <strong>3.1 points</strong> — roughly the same boost you'd get by paying ten times more for the bottle.</p>
+  <figure><img src="figures/04_by_taster.png" alt="Bar chart of average points by reviewer, spanning about 3 points"><figcaption>Average points awarded by the ten most prolific reviewers — a real, systematic spread.</figcaption></figure>
+
+  <div class="findings">
+    <h3>The findings</h3>
+    <ul>
+      <li>Scores are <strong>floored at 80</strong> and <strong>86% land in 84–92</strong>: the 100-point scale is effectively ~8 points wide.</li>
+      <li>Points track <strong>log-price (r = 0.61)</strong> with steep diminishing returns: ~$10 → ≈85 pts, ~$100 → ≈92 pts.</li>
+      <li>Average score is <strong>flat across vintages</strong> (~0.09 pts/decade) — the compression is structural.</li>
+      <li>The <strong>reviewer adds a 3.1-point spread</strong> — as much as a 10× price jump.</li>
+    </ul>
+  </div>
+
+  <h2>What to do with a wine score</h2>
+  <p>Treat the number as a coarse signal, not a verdict. The gap between an 88 and a 90 is mostly noise — vintage, reviewer, and rounding. If you're hunting value, the early part of the price curve is where the points are cheapest, which is exactly the thread I pull on in my <a href="https://github.com/lyhjeremy">New World vs Old World wine value</a> work.</p>
+
+  <div class="note"><strong>Data &amp; method:</strong> the public "winemag-data-130k-v2" Wine Enthusiast dataset (~130k reviews; <a href="https://www.kaggle.com/datasets/zynicide/wine-reviews">Kaggle</a>, via a GitHub mirror). Vintage parsed from each wine's title. <strong>Caveat:</strong> this is a single snapshot from one publication, so it can't measure score drift by <em>review date</em> over time — the "inflation" here is the structural compression of the scale (an 80 floor and a narrow band), plus the price, vintage, and reviewer effects, not a year-over-year creep. Reproduce with <code>fetch_data.py</code> + <code>analyze.py</code> in the <a href="https://github.com/lyhjeremy/wine-score-inflation">repo</a>.</div>
+
+  <p class="footer">Built with Python (pandas, scipy, matplotlib) · © 2026 Jeremy Lee · MIT License · <a href="https://github.com/lyhjeremy/wine-score-inflation">source on GitHub</a></p>
+</div>
+</body>
+</html>
