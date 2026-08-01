@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Wine score inflation — the 100-point scale that is really 8 points wide</title>
+<meta name="description" content="Across roughly 130,000 Wine Enthusiast reviews, nothing is published below 80 and 86% of wines land between 84 and 92. Price buys points with steep diminishing returns." />
+<meta name="theme-color" content="#FBF8F1" />
+<meta property="og:title" content="The 100-point scale that isn't" />
+<meta property="og:description" content="130,000 professional wine reviews. The famous 100-point scale uses about eight of them." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lyhjeremy.github.io/wine-score-inflation/overview/" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #FBF8F1;
+    --card: #FFFFFF;
+    --plate: #FFFFFF;
+    --ink: #1a1a2e;
+    --ink2: #3d3d55;
+    --muted: #6B7280;
+    --rule: #E5DCC7;
+    --accent: #7a1f2b;
+    --accent2: #B45309;
+    --link: #15868C;
+    --serif: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+    --sans: 'Source Sans 3', -apple-system, system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+    --shadow: 0 1px 2px rgba(26,26,46,.05), 0 10px 34px rgba(26,26,46,.07);
+    --spine:  92px;
+    --col:    min(100% - 2.6rem, 62rem);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #14141f;
+      --card: #1c1c2a;
+      --plate: #f7f4ec;
+      --ink: #F2EFE6;
+      --ink2: #C9C4B6;
+      --muted: #918B7D;
+      --rule: #33313f;
+      --accent: #E0899A;
+      --accent2: #E3BC5E;
+      --link: #3FB4B9;
+      --shadow: 0 1px 2px rgba(0,0,0,.32), 0 10px 34px rgba(0,0,0,.4);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--serif); font-size: clamp(17px, 0.55rem + 0.6vw, 19.5px);
+    line-height: 1.68; -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: var(--link); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+  strong { font-weight: 700; color: var(--ink); }
+  code { font-family: var(--mono); font-size: .86em;
+         background: color-mix(in srgb, var(--ink) 7%, transparent);
+         padding: .12em .38em; border-radius: 4px; }
+  .wrap { width: var(--col); margin: 0 auto; }
+
+  .eyebrow { font-family: var(--mono); font-weight: 600; font-size: 11.5px;
+             letter-spacing: .17em; text-transform: uppercase; color: var(--muted);
+             margin: 0 0 14px; }
+
+  .masthead { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; padding: 30px 0 0; }
+  .logo { font-family: var(--sans); font-weight: 800; font-size: 21px;
+          letter-spacing: -.02em; display: flex; align-items: center; gap: 9px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); flex: none; }
+  .tagline { font-size: 15px; color: var(--ink2); font-family: var(--sans); }
+
+  .hero { padding: 44px 0 54px; }
+  .kicker { font-family: var(--sans); font-size: clamp(18px, 2.1vw, 23px); font-weight: 600;
+            color: var(--muted); margin: 0 0 8px; letter-spacing: -.01em; }
+  .hero h1 { font-family: var(--sans); font-size: clamp(37px, 6vw, 72px); font-weight: 800;
+             letter-spacing: -.035em; line-height: 1.04; margin: 0; max-width: 17ch; }
+  .hero-sub { margin: 24px 0 0; font-size: 1.06em; color: var(--ink2); max-width: 60ch; }
+
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; align-items: center; }
+  .btn { display: inline-block; padding: 13px 26px; border-radius: 8px;
+         font-family: var(--sans); font-weight: 700; font-size: 16px;
+         text-decoration: none; border: 1px solid var(--ink); transition: transform .15s ease; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--ink); color: var(--paper); }
+  .textlink { font-family: var(--sans); font-size: 16px; font-weight: 600; color: var(--ink2);
+              text-decoration: underline; text-underline-offset: 4px;
+              text-decoration-thickness: 1px; }
+  .textlink:hover { color: var(--ink); }
+
+  .claims { display: grid; grid-template-columns: 1fr; gap: 0 52px; margin: 50px 0 0; }
+  @media (min-width: 760px) { .claims { grid-template-columns: 1fr 1fr; } }
+  .claim { padding: 18px 0 20px; border-top: 1px solid var(--rule); }
+  .claim:first-child, .claim:nth-child(2) { border-top: 2px solid var(--ink); }
+  @media (max-width: 759px) { .claim:nth-child(2) { border-top: 1px solid var(--rule); } }
+  .claim .n { font-family: var(--sans); font-weight: 800; font-size: 40px; line-height: 1.05;
+              color: var(--accent); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+  .claim h3 { margin: 0 0 6px; }
+  .claim p { margin: 9px 0 0; font-size: 15.5px; color: var(--ink2); line-height: 1.5;
+             font-family: var(--sans); }
+
+  .route { position: relative; padding-bottom: 30px; }
+  .route::before { content: ""; position: absolute; left: calc(var(--spine) / 2); top: 8px;
+                   bottom: 80px; width: 2px; background: var(--rule); }
+  .stop { position: relative; padding: 0 0 76px var(--spine); }
+  .stop::before { content: ""; position: absolute; left: calc(var(--spine) / 2 - 7px); top: 7px;
+                  width: 16px; height: 16px; border-radius: 50%;
+                  background: var(--paper); border: 2px solid var(--ink); box-sizing: border-box; }
+  .stop--key::before { background: var(--accent); border-color: var(--accent); }
+  .stop--warn::before { background: var(--accent2); border-color: var(--accent2); }
+  .stop--end::before { background: var(--ink); }
+
+  h2 { font-family: var(--sans); font-size: clamp(27px, 3.7vw, 38px); font-weight: 800;
+       letter-spacing: -.027em; line-height: 1.13; margin: 12px 0 16px; max-width: 19ch; }
+  h3 { font-family: var(--sans); font-size: 17px; font-weight: 700; margin: 0 0 7px;
+       letter-spacing: -.012em; }
+  .stop p { margin: 0 0 17px; max-width: 60ch; color: var(--ink2); }
+
+  .bignum { font-family: var(--sans); font-weight: 800; font-size: clamp(74px, 10vw, 128px);
+            line-height: .86; letter-spacing: -.05em; margin: 6px 0 4px; color: var(--accent);
+            font-variant-numeric: tabular-nums; }
+  .bignum-note { font-family: var(--sans); font-size: 16px; color: var(--muted); margin: 0 0 20px; }
+
+  /* A white-background chart would glow in dark mode; the plate makes it read
+     as a deliberately printed page instead. */
+  figure { margin: 28px 0 0; }
+  .plate { background: var(--plate); border: 1px solid var(--rule); border-radius: 10px;
+           padding: 14px; box-shadow: var(--shadow); overflow: hidden; }
+  .plate img { border-radius: 4px; }
+  .plate--flush { padding: 0; }
+  .shot { border-radius: 10px; border: 1px solid var(--rule); box-shadow: var(--shadow);
+          overflow: hidden; background: var(--card); }
+  /* min() so the cap never exceeds the column on a phone */
+  .shot--narrow { max-width: min(430px, 100%); }
+  figcaption { margin-top: 11px; font-family: var(--sans); font-size: 14.5px;
+               color: var(--muted); line-height: 1.5; }
+  .panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
+            gap: 22px; margin-top: 28px; }
+  .panels figure { margin: 0; }
+
+  .pull { margin: 30px 0 0; padding: 20px 25px; border-left: 3px solid var(--accent);
+          background: color-mix(in srgb, var(--accent) 7%, transparent);
+          border-radius: 0 8px 8px 0; }
+  .pull p { margin: 0 0 9px; color: var(--ink); max-width: none; }
+  .pull p:last-of-type { margin: 0; }
+  .pull .who { font-family: var(--mono); font-size: 11px; letter-spacing: .12em;
+               text-transform: uppercase; color: var(--muted); display: block; margin-top: 9px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(238px, 1fr));
+          gap: 1px; margin-top: 28px; background: var(--rule);
+          border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+  .cell { background: var(--paper); padding: 22px 20px; }
+  .cell p { font-size: 15px; margin: 0; color: var(--ink2); max-width: none;
+            line-height: 1.55; font-family: var(--sans); }
+
+  /* results tables: scroll inside their own box, never the page */
+  .tablewrap { margin-top: 26px; overflow-x: auto; border: 1px solid var(--rule);
+               border-radius: 10px; background: var(--card); }
+  table { border-collapse: collapse; width: 100%; min-width: 480px;
+          font-family: var(--sans); font-size: 15.5px; }
+  th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--rule); }
+  th { font-family: var(--mono); font-size: 11px; letter-spacing: .1em;
+       text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  td { color: var(--ink2); font-variant-numeric: tabular-nums; }
+  tr:last-child td { border-bottom: 0; }
+  .win td { color: var(--ink); font-weight: 700;
+            background: color-mix(in srgb, var(--accent) 8%, transparent); }
+
+  /* real terminal output, quoted verbatim */
+  .term { margin-top: 26px; background: #14141f; color: #e6e3da; border-radius: 10px;
+          padding: 18px 20px; overflow-x: auto; box-shadow: var(--shadow);
+          border: 1px solid #2a2a3a; }
+  .term pre { margin: 0; font-family: var(--mono); font-size: 13px; line-height: 1.62;
+              white-space: pre; }
+  .term .c { color: #9aa08f; }
+  .term .g { color: #7fd18f; }
+  .term .y { color: #E3BC5E; }
+
+  .specs { margin-top: 26px; border-top: 1px solid var(--rule); }
+  .spec { display: grid; grid-template-columns: 1fr; gap: 2px;
+          padding: 14px 0; border-bottom: 1px solid var(--rule); }
+  @media (min-width: 700px) { .spec { grid-template-columns: 178px 1fr; gap: 24px; } }
+  .spec dt { font-family: var(--mono); font-size: 11.5px; letter-spacing: .1em;
+             text-transform: uppercase; color: var(--muted); padding-top: 4px; }
+  .spec dd { margin: 0; font-size: 16px; color: var(--ink2); font-family: var(--sans); }
+
+  .close { padding: 6px 0 80px var(--spine); position: relative; }
+  .close h2 { max-width: 20ch; }
+  footer { border-top: 1px solid var(--rule); padding: 28px 0 60px;
+           font-family: var(--sans); font-size: 14.5px; color: var(--muted); }
+  footer a { color: var(--ink2); }
+  footer p { margin: 0 0 8px; }
+
+  @media (max-width: 640px) {
+    :root { --spine: 38px; }
+    .hero { padding: 36px 0 46px; }
+    .stop { padding-bottom: 58px; }
+    .plate { padding: 9px; }
+    .term { padding: 14px 14px; }
+    .term pre { font-size: 11.5px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+  }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <div class="logo"><span class="dot" aria-hidden="true"></span>Wine Score Inflation</div>
+    <div class="tagline">~130,000 professional reviews</div>
+  </header>
+
+  <section class="hero">
+    <p class="kicker">Wine is rated out of 100.</p>
+    <h1>It uses about eight of them.</h1>
+
+    <p class="hero-sub">
+      Across roughly <strong>130,000 Wine Enthusiast reviews</strong>, nothing at
+      all is published below <strong>80</strong>, and <strong>86%</strong> of every
+      wine reviewed lands between <strong>84 and 92</strong>. The bottom four
+      fifths of the scale are decorative. What is left is a narrow band in which
+      price buys points at a steeply diminishing rate, and in which the name of
+      the reviewer matters about as much as a tenfold change in price.
+    </p>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="../">Read the short version</a>
+      <a class="textlink" href="https://github.com/lyhjeremy/wine-score-inflation">or the code and data</a>
+    </div>
+
+    <div class="claims">
+      <div class="claim">
+        <div class="n">80</div>
+        <p>the hard floor. Not a single published review sits below it, so the
+           usable scale starts four fifths of the way up.</p>
+      </div>
+      <div class="claim">
+        <div class="n">86%</div>
+        <p>of all wines score between 84 and 92. Nine points hold almost the
+           entire catalogue.</p>
+      </div>
+      <div class="claim">
+        <div class="n">r = 0.61</div>
+        <p>points against log price. Real, but logarithmic: $10 buys about 85
+           points, $100 buys about 92.</p>
+      </div>
+      <div class="claim">
+        <div class="n">3.1 pts</div>
+        <p>between the most and least generous reviewer. On an eight-point scale
+           that is not a rounding error.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+<div class="route">
+
+  <section class="stop">
+    <p class="eyebrow">Start · the question</p>
+    <h2>What does 92 points actually mean?</h2>
+    <p>
+      Wine scores are treated as an absolute measure. A 92 on the shelf tag is
+      read as "92 out of 100," which implies there is a 62 out there somewhere and
+      that this wine is comfortably above the middle. Both implications are wrong,
+      and the size of how wrong is worth measuring.
+    </p>
+    <p>
+      The public winemag dataset makes it checkable: about 130,000 reviews, each
+      with a score, a price, a vintage, and the taster who wrote it. That is
+      enough to ask what the scale actually does, what price buys, and how much of
+      a score is the wine versus the person drinking it.
+    </p>
+  </section>
+
+  <section class="stop stop--key">
+    <p class="eyebrow">↓ the shape of the scale</p>
+    <h2>A floor at 80 and a spike in the middle</h2>
+
+    <div class="bignum">8 pts</div>
+    <p class="bignum-note">the effective width of a scale advertised as 100 points.</p>
+
+    <p>
+      The distribution is not a bell curve spread across a hundred points. It is a
+      narrow hump sitting on a cliff. Nothing below 80 is published at all, which
+      is a publishing decision rather than a fact about wine, and the mass piles
+      up between 84 and 92.
+    </p>
+    <p>
+      This is the structural version of "inflation." No year-over-year creep is
+      needed for the scale to be useless at the bottom; it simply never uses the
+      bottom.
+    </p>
+    <figure>
+      <div class="plate">
+        <img width="1720" height="960" src="../figures/01_distribution.png" fetchpriority="high"
+          alt="Histogram of wine scores showing a hard left edge at 80, a tall peak between 86 and 90, and a thin tail extending toward 100." />
+      </div>
+      <figcaption>The published distribution. A cliff at 80, almost everything in the high 80s.</figcaption>
+    </figure>
+  </section>
+
+  <section class="stop">
+    <p class="eyebrow">↓ what money buys</p>
+    <h2>Price works, logarithmically</h2>
+    <p>
+      Expensive wine does score better, and the relationship is strong for
+      something this noisy: <strong>r = 0.61</strong> against log price. But the
+      log is the story. Going from <strong>$10 to $100</strong> — a tenfold
+      increase — moves the expected score from about <strong>85 to about 92</strong>,
+      roughly seven points. The next tenfold buys far less.
+    </p>
+    <p>
+      Read the other way, the cheap end of the market is where the points-per-dollar
+      lives, and nothing in this data suggests a $400 bottle is meaningfully
+      better rated than a $100 one.
+    </p>
+    <figure>
+      <div class="plate">
+        <img width="1720" height="960" src="../figures/02_price_vs_points.png" loading="lazy"
+          alt="Scatter of price against points on a logarithmic price axis, with a rising curve that flattens noticeably above about one hundred dollars." />
+      </div>
+      <figcaption>Points against price on a log axis. The curve flattens hard past $100.</figcaption>
+    </figure>
+  </section>
+
+  <section class="stop">
+    <p class="eyebrow">↓ two things that should matter and don't</p>
+    <h2>Vintage barely moves. The taster moves a lot.</h2>
+    <p>
+      Average score by vintage is <strong>essentially flat</strong>, drifting about
+      0.09 points per decade. Whatever people mean by good and bad years, it does
+      not show up in the mean of a large catalogue.
+    </p>
+    <p>
+      Reviewers, by contrast, differ by <strong>3.1 points</strong> between the most
+      and least generous. On a scale that is genuinely about eight points wide,
+      that gap is a third of the whole usable range, from nothing but a change of
+      author.
+    </p>
+    <div class="panels">
+      <figure>
+        <div class="plate">
+          <img width="1720" height="919" src="../figures/03_by_vintage.png" loading="lazy"
+            alt="Mean score by vintage year, an almost horizontal line with minor year-to-year wobble and no visible trend." />
+        </div>
+        <figcaption><strong>Vintage</strong> — flat, about 0.09 points per decade.</figcaption>
+      </figure>
+      <figure>
+        <div class="plate">
+          <img width="1720" height="1000" src="../figures/04_by_taster.png" loading="lazy"
+            alt="Mean score by individual taster, showing a spread of about three points between the most and least generous reviewers." />
+        </div>
+        <figcaption><strong>Taster</strong> — a 3.1-point spread, person to person.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="stop stop--warn">
+    <p class="eyebrow">↓ what this cannot tell you</p>
+    <h2>One publication, one snapshot</h2>
+    <p>
+      Everything here comes from a single snapshot of a single magazine. That
+      matters most for the word "inflation." Because the data carries no review
+      <em>date</em>, this cannot measure scores creeping upward year over year,
+      which is what most people mean by the term.
+    </p>
+    <p>
+      What it measures instead is the <strong>structural</strong> version: an 80
+      floor, a compressed band, and a scale whose advertised range is mostly
+      fiction. That is a real and separate finding, and the page says which one it
+      is rather than letting the headline imply the other.
+    </p>
+    <p>
+      Vintage is parsed out of each wine's title, so a small number of titles that
+      do not carry a year are simply absent from that chart rather than guessed at.
+    </p>
+  </section>
+
+  <section class="stop stop--end">
+    <p class="eyebrow">Finish · how it was built</p>
+    <h2>Where the numbers come from</h2>
+    <dl class="specs">
+      <div class="spec"><dt>Data</dt><dd>The public <code>winemag-data-130k-v2</code> Wine Enthusiast dataset, via a GitHub mirror</dd></div>
+      <div class="spec"><dt>Sample</dt><dd>~130,000 reviews with score, price, title and taster</dd></div>
+      <div class="spec"><dt>Price model</dt><dd>Points against log price, since the raw price distribution is extremely skewed</dd></div>
+      <div class="spec"><dt>Vintage</dt><dd>Parsed from the wine title; rows without a parseable year are dropped from that view only</dd></div>
+      <div class="spec"><dt>Built with</dt><dd>Python, pandas, matplotlib</dd></div>
+      <div class="spec"><dt>Related</dt><dd>The same 130k reviews become a retrieval index in <a href="https://lyhjeremy.github.io/wine-sommelier-rag/">Wine Sommelier RAG</a> and the search tool inside the <a href="https://lyhjeremy.github.io/wine-pairing-agent/">Wine Pairing Agent</a></dd></div>
+    </dl>
+  </section>
+
+</div>
+</div>
+
+<div class="wrap">
+  <section class="close">
+    <h2>Next time, read 88 as "fine" rather than "B+"</h2>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="../">Read the short version</a>
+      <a class="textlink" href="https://github.com/lyhjeremy/wine-score-inflation">or the code and data</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      Wine Score Inflation ·
+      <a href="../">Story</a> ·
+      <a href="https://github.com/lyhjeremy/wine-score-inflation">Source</a> ·
+      MIT © 2026 Jeremy Lee
+    </p>
+    <p>Review data from the public winemag-data-130k-v2 dataset.</p>
+  </footer>
+</div>
+</body>
+</html>

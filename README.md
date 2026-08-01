@@ -6,6 +6,7 @@ between **84 and 92**. Price buys points with steep diminishing returns, the tre
 across vintages is flat, and the reviewer matters as much as a 10× price jump.
 
 > 🌐 **Read the story:** https://lyhjeremy.github.io/wine-score-inflation/
+> 📖 **In depth:** https://lyhjeremy.github.io/wine-score-inflation/overview/
 
 ## Findings
 - Scores floored at **80**; **86%** land in **84–92** (scale is ~8 points wide).
