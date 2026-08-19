@@ -1,17 +1,19 @@
-# Wine Score Inflation — the 100-point scale that isn't
+# Wine Score Inflation: the 100-point scale that isn't
+
+Design and copy follow [these standards](https://github.com/lyhjeremy/lyhjeremy/blob/main/DESIGN_STANDARDS.md).
 
 Across ~130,000 Wine Enthusiast reviews, the famous 100-point scale is really an
 **8-point** one: nothing is published below **80**, and **86%** of all wines score
 between **84 and 92**. Price buys points with steep diminishing returns, the trend
 across vintages is flat, and the reviewer matters as much as a 10× price jump.
 
-> 🌐 **Read the story:** https://lyhjeremy.github.io/wine-score-inflation/
-> 📖 **In depth:** https://lyhjeremy.github.io/wine-score-inflation/overview/
+> **Read the story:** https://lyhjeremy.github.io/wine-score-inflation/
+> **In depth:** https://lyhjeremy.github.io/wine-score-inflation/overview/
 
 ## Findings
 - Scores floored at **80**; **86%** land in **84–92** (scale is ~8 points wide).
 - Points vs **log-price r = 0.61**, steep diminishing returns (~$10 → ≈85 pts, ~$100 → ≈92 pts).
-- Average score is **flat across vintages** (~0.09 pts/decade) — the inflation is structural.
+- Average score is **flat across vintages** (~0.09 pts/decade). The inflation is structural.
 - **3.1-point** spread between the most and least generous reviewers.
 
 ## Reproduce
