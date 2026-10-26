@@ -1,35 +1,59 @@
-# Wine Score Inflation: the 100-point scale that isn't
+# Wine Score Inflation
+
+A data study of 129,971 Wine Enthusiast reviews showing that the 100-point wine scale is, in practice, about eight points wide.
+
+[Live site](https://lyhjeremy.github.io/wine-score-inflation/) · [Write-up](https://lyhjeremy.github.io/wine-score-inflation/overview/)
 
 Design and copy follow [these standards](https://github.com/lyhjeremy/lyhjeremy/blob/main/DESIGN_STANDARDS.md).
 
-Across ~130,000 Wine Enthusiast reviews, the famous 100-point scale is really an
-**8-point** one: nothing is published below **80**, and **86%** of all wines score
-between **84 and 92**. Price buys points with steep diminishing returns, the trend
-across vintages is flat, and the reviewer matters as much as a 10× price jump.
+## Results
 
-> **Read the story:** https://lyhjeremy.github.io/wine-score-inflation/
-> **In depth:** https://lyhjeremy.github.io/wine-score-inflation/overview/
+| Measure | Value |
+|---|---|
+| Lowest published score | 80 |
+| Share of wines scoring 84 to 92 | 85.7% |
+| Points against log price | r = 0.61 |
+| Average at about $10 / about $100 | 85.3 / 91.9 points |
+| Vintage trend, 1995 to 2016 | 0.09 points per decade |
+| Spread between the ten most prolific tasters | 3.1 points (86.9 to 90.0) |
 
-## Findings
-- Scores floored at **80**; **86%** land in **84–92** (scale is ~8 points wide).
-- Points vs **log-price r = 0.61**, steep diminishing returns (~$10 → ≈85 pts, ~$100 → ≈92 pts).
-- Average score is **flat across vintages** (~0.09 pts/decade). The inflation is structural.
-- **3.1-point** spread between the most and least generous reviewers.
+![Histogram of wine scores with a hard floor at 80 and most wines between 84 and 92](figures/01_distribution.png)
 
-## Reproduce
+## Method
+
+`analyze.py` loads the reviews with pandas, coerces points and price to numbers, and pulls the vintage year out of each title with a regular expression. It then computes four things:
+
+1. The score distribution: minimum, mean, median and the share of wines from 84 to 92.
+2. Price against points: the Pearson correlation of points with log10 price for wines from $4 to $500, the mean score at $9 to $11 and at $90 to $110, and a curve over 20 equal-count price bins.
+3. Vintage: mean score per vintage from 1995 to 2016 and a linear fit (`scipy.stats.linregress`) through those means.
+4. Tasters: the mean score of each of the ten tasters with the most reviews.
+
+Every number above is written to `tables/summary.csv` and drawn in `figures/`.
+
+Stack: Python, pandas, NumPy, SciPy, matplotlib.
+
+## How to run
+
 ```bash
 pip install -r requirements.txt
-python fetch_data.py     # downloads the ~130k-review dataset to data/
+python fetch_data.py     # downloads the ~130k-review CSV to data/ (git-ignored)
 python analyze.py        # writes figures/ and tables/summary.csv
 ```
 
-## Data & caveat
-The public "winemag-data-130k-v2" Wine Enthusiast dataset (~130k reviews, Kaggle,
-via a GitHub mirror). Vintage is parsed from each wine's title. Because this is a
-single snapshot from one publication, it can't measure score drift by **review
-date**; the "inflation" here is the structural compression of the scale (an 80
-floor and a narrow band) plus price/vintage/reviewer effects, not a year-over-year
-creep. Raw data is downloaded by `fetch_data.py` and git-ignored.
+## Repo layout
+
+| Path | Contents |
+|---|---|
+| `fetch_data.py` | Downloads `winemag-data-130k-v2.csv` |
+| `analyze.py` | All statistics and figures |
+| `figures/` | The four charts used on the site |
+| `tables/summary.csv` | The headline numbers |
+| `index.html`, `overview/` | The published story and write-up |
+
+## Limitations
+
+The data is the public `winemag-data-130k-v2` set (Kaggle, through a GitHub mirror): one snapshot from one publication, with no review dates. It cannot show scores creeping upward over time. The inflation it measures is structural: an 80 floor and a narrow band, plus the price, vintage and taster effects inside that band. Wines whose titles carry no year drop out of the vintage chart only. Taster means are raw, so they mix taster generosity with the regions and price points each taster covers.
 
 ## License
+
 [MIT](LICENSE) © 2026 Jeremy Lee

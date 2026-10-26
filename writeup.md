@@ -1,22 +1,25 @@
-# Wine Score Inflation: the 100-point scale that isn't
+# Wine Score Inflation: the 100-point scale that uses eight points
 
-**Question.** What does a wine "score" actually tell you?
+## Question
 
-**Data.** The public winemag-data-130k-v2 Wine Enthusiast dataset (129,971 reviews):
-points (80-100), price, title (vintage), taster_name. Vintage parsed from title.
+What does a wine score tell you? A 92 reads like a grade out of 100, which assumes the lower half of the scale is in use. This study checks that assumption against a large set of professional reviews.
 
-**Results.**
-- Distribution: min 80 (hard floor - nothing lower is published), mean 88.4,
-  median 88; 85.7% of wines score 84-92. The usable scale is ~8 points wide.
-- Price: points vs log-price r = 0.61; ~$10 wine averages 85.3 pts, ~$100 wine 91.9
-  pts - steep diminishing returns.
-- Vintage: average points essentially flat across vintages (~0.09 pts/decade,
-  r = 0.10) - the compression is structural, not a recency trend.
-- Reviewer: among the 10 most prolific tasters, mean scores span 3.1 points
-  (86.9 to 90.0) - comparable to a 10x price increase.
+## Data
 
-**Caveat.** A single-publication snapshot cannot measure score drift by review date.
-"Inflation" here means the structural compression of the scale plus price, vintage,
-and reviewer effects.
+The public `winemag-data-130k-v2` Wine Enthusiast dataset: 129,971 reviews, each with points (80 to 100), price, a title that usually contains the vintage year, and the taster's name. `fetch_data.py` downloads it from a GitHub mirror of the Kaggle set.
 
-See `analyze.py` and `figures/`.
+## Results
+
+**Distribution.** The minimum is 80; no lower score is published. The mean is 88.45 and the median 88. 85.7% of wines score from 84 to 92, so the usable scale is about eight points wide.
+
+**Price.** For wines priced $4 to $500, points correlate with log price at r = 0.61. Wines at about $10 average 85.3 points and wines at about $100 average 91.9, a gain of 6.6 points for a tenfold price increase. The curve over 20 price bins flattens after $100.
+
+**Vintage.** Mean score by vintage, 1995 to 2016, rises 0.09 points per decade (r = 0.10 across the yearly means). The compression is structural and does not come from newer vintages scoring higher.
+
+**Tasters.** Among the ten tasters with the most reviews, mean scores range from 86.9 to 90.0, a spread of 3.1 points. That is about half the effect of the $10 to $100 step and more than a third of the 84 to 92 band.
+
+## Limitations
+
+A single-publication snapshot without review dates cannot measure score drift over time. Inflation here means the structural compression of the scale plus the price, vintage and taster effects inside it. Taster means are unadjusted for region or price.
+
+See `analyze.py`, `tables/summary.csv` and `figures/`.

@@ -3,100 +3,121 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Wine Score Inflation: the 100-point scale that isn't</title>
-<meta name="description" content="Across ~130,000 Wine Enthusiast reviews, the famous 100-point scale is really an 8-point one: nothing is published below 80, and 86% of all wines score between 84 and 92. Price buys points with steep diminishing returns, and the reviewer matters as much as the wine." />
+<title>Wine Score Inflation: the 100-point scale that uses eight points</title>
+<meta name="description" content="In 129,971 Wine Enthusiast reviews, nothing is published below 80 and 85.7% of wines score between 84 and 92. Price buys points on a log curve, vintage barely matters, and tasters differ by 3.1 points." />
+<link rel="stylesheet" href="assets/family.css" />
 <style>
-@font-face{font-family:"Source Serif 4";src:url("fonts/SourceSerif4-400.woff2")format("woff2");font-weight:400;font-display:swap}
-@font-face{font-family:"Source Serif 4";src:url("fonts/SourceSerif4-600.woff2")format("woff2");font-weight:600;font-display:swap}
-@font-face{font-family:"IBM Plex Sans";src:url("fonts/IBMPlexSans-400.woff2")format("woff2");font-weight:400;font-display:swap}
-@font-face{font-family:"IBM Plex Sans";src:url("fonts/IBMPlexSans-600.woff2")format("woff2");font-weight:600;font-display:swap}
-@font-face{font-family:"IBM Plex Mono";src:url("fonts/IBMPlexMono-400.woff2")format("woff2");font-weight:400;font-display:swap}
-
-  :root{--ink:#1C1E1B;--paper:#EDEDE7;--rule:#C6C7BF;--soft:#52564E;--accent:#8C3A1E;--teal:#2C5852;--coral:#6E4A44;--wine:#7b1733}
-  *{box-sizing:border-box} html,body{margin:0;padding:0}
-  body{background:var(--paper);color:var(--ink);font-family:"Source Serif 4", "Iowan Old Style", "Palatino Linotype", Palatino, serif;line-height:1.7;font-size:18px}
-  .hero{width:100%;background:#14142b;overflow:hidden}.hero svg{width:100%;height:250px;display:block}
-  .container{max-width:760px;margin:0 auto;padding:40px 24px 80px}
-  .kicker{text-transform:uppercase;letter-spacing:.16em;font-family:"IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;font-size:13px;color:var(--wine);font-weight:700;text-align:center;margin-bottom:14px}
-  h1{font-size:40px;line-height:1.18;text-align:center;margin:0 0 16px}
-  .lede{font-size:21px;color:#33334d;text-align:center;margin:0 auto 6px;max-width:640px}
-  .byline{color:var(--soft);font-style:italic;text-align:center;margin:20px 0 36px}
-  h2{font-size:27px;margin:54px 0 14px;border-bottom:1px solid var(--rule);padding-bottom:8px}
-  p{margin:0 0 18px} a{color:var(--teal)}
-  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:34px 0}
-  .stat{background:#F5F5F0;border:1px solid var(--rule);border-radius: 0;padding:22px 14px;text-align:center}
-  .stat .n{font-family:"IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;font-size:32px;font-weight:800;color:var(--wine);line-height:1}
-  .stat .l{font-size:13px;color:var(--soft);margin-top:8px;font-family:"IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif}
-  figure{margin:32px 0;text-align:center}
-  figure img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius: 0;background:#F5F5F0}
-  figcaption{font-size:14px;color:var(--soft);font-style:italic;margin-top:10px}
-  .findings{background:#F5F5F0;border:1px solid var(--rule);border-radius: 0;padding:22px 30px;margin:30px 0}
-  .findings ul{margin:0;padding-left:20px} .findings li{margin-bottom:11px}
-  .note{background:#F5F5F0;border:1px solid var(--rule);border-left:4px solid var(--teal);border-radius: 0;padding:14px 20px;font-size:14.5px;color:#444;font-family:"IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;margin:24px 0}
-  .footer{text-align:center;color:var(--soft);font-size:14px;margin-top:54px;font-family:"IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif}
-  @media(max-width:560px){h1{font-size:30px}.stats{grid-template-columns:1fr}.hero svg{height:190px}}
+  * { box-sizing: border-box; border-radius: 0; }
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--font-head); font-size: 18px; line-height: 1.7; }
+  a { color: var(--signal); }
+  :focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+  .bar { display: block; background: var(--ink); color: var(--paper); text-align: center; padding: 11px 18px; font: 600 14.5px/1.45 var(--font-body); letter-spacing: .01em; text-decoration: none; }
+  .bar:hover { text-decoration: underline; }
+  .wrap { max-width: 46rem; margin: 0 auto; padding: 0 22px; }
+  header { text-align: center; padding: 46px 0 8px; }
+  .house { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 21px; color: var(--ink-2); margin: 0; }
+  h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(40px, 7vw, 66px); line-height: 1.02; letter-spacing: -.01em; margin: 10px auto 18px; max-width: 15ch; }
+  .lede { font-size: 20px; color: var(--ink-2); max-width: 36rem; margin: 0 auto 26px; }
+  .scale { margin: 6px auto 26px; max-width: 40rem; }
+  .scale svg { width: 100%; height: auto; display: block; }
+  .scale .axis { stroke: var(--edge); }
+  .scale .tick { fill: var(--ink-2); font: 400 13px var(--font-body); }
+  .scale .band { fill: var(--signal); }
+  .scale .label { fill: var(--ink); font: 500 italic 19px var(--font-display); }
+  .scale .unused { fill: var(--rule); }
+  .scale .unused-label { fill: var(--ink-2); font: 500 italic 16px var(--font-display); }
+  .byline { font-family: var(--font-body); font-size: 14px; color: var(--ink-2); margin: 0 0 30px; }
+  .findings { list-style: none; margin: 34px 0 0; padding: 0; border-top: 1px solid var(--edge); }
+  .findings li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 18px; padding: 16px 0; border-bottom: 1px dotted var(--edge); }
+  .findings .n { font-family: var(--font-display); font-weight: 600; font-size: 34px; line-height: 1.05; color: var(--signal); font-variant-numeric: tabular-nums; }
+  .findings p { margin: 0; font-family: var(--font-body); font-size: 16px; line-height: 1.55; color: var(--ink-2); }
+  h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(30px, 4.4vw, 40px); line-height: 1.08; margin: 58px 0 12px; text-align: center; }
+  .course { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 19px; color: var(--signal-2); text-align: center; margin: 58px 0 0; }
+  .course + h2 { margin-top: 4px; }
+  p { margin: 0 0 18px; }
+  figure { margin: 26px 0 0; }
+  figure img { width: 100%; height: auto; display: block; border: 1px solid var(--rule); background: var(--panel); }
+  figcaption { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 17px; color: var(--ink-2); margin-top: 10px; text-align: center; }
+  .method { margin: 58px 0 0; border: 1px solid var(--edge); background: var(--panel); padding: 20px 24px; font-family: var(--font-body); font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+  .method h3 { font-family: var(--font-display); font-weight: 600; font-size: 24px; color: var(--ink); margin: 0 0 8px; }
+  .method p:last-child { margin-bottom: 0; }
+  code { font-family: var(--font-mono); font-size: .88em; }
+  footer { margin: 50px 0 0; padding: 22px 0 60px; border-top: 1px solid var(--rule); text-align: center; font-family: var(--font-body); font-size: 14px; color: var(--ink-2); }
+  footer a { color: var(--ink-2); }
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    .findings li { grid-template-columns: 1fr; gap: 4px; }
+    .scale .tick { font-size: 22px; } .scale .label { font-size: 28px; } .scale .unused-label { font-size: 24px; }
+  }
 </style>
 </head>
 <body>
-<a href="overview/" data-overview-link style="display:block;background:#1C1E1B;color:#EDEDE7;text-align:center;padding:11px 18px;font:600 14.5px/1.45 -apple-system,'Helvetica Neue',Arial,sans-serif;letter-spacing:.01em;text-decoration:none">Read the full writeup&nbsp;&rarr;</a>
+<a href="overview/" data-overview-link class="bar">Read the full writeup&nbsp;&rarr;</a>
 
-<div class="hero">
-  <svg viewBox="0 0 760 250" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A score bar from 80 to 100 with almost all wines bunched in the middle">
-    <defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c1c3d"/><stop offset="1" stop-color="#101025"/></linearGradient></defs>
-    <rect width="760" height="250" fill="url(#bg)"/>
-    <g transform="translate(80,150)">
-      <line x1="0" y1="0" x2="600" y2="0" stroke="#3a3a63" stroke-width="3"/>
-      <g font-family="Helvetica Neue,Arial" fill="#cbb98a" font-size="14"><text x="-6" y="28">80</text><text x="588" y="28">100</text></g>
-      <rect x="120" y="-60" width="240" height="60" fill="#7b1733" opacity="0.85"/>
-      <g font-family="Helvetica Neue,Arial" fill="#6E4A44" font-size="15"><text x="150" y="-72">86% of all wines live here</text></g>
-      <g fill="#8C3A1E"><circle cx="150" cy="-12" r="4"/><circle cx="200" cy="-22" r="4"/><circle cx="250" cy="-16" r="4"/><circle cx="300" cy="-26" r="4"/><circle cx="330" cy="-14" r="4"/></g>
-    </g>
-  </svg>
-</div>
-<div class="container">
-  <p class="kicker">Data story · ~130,000 wine reviews</p>
-  <h1>Wine Score Inflation</h1>
-  <p class="lede">Wines are rated on a "100-point scale." So why does it feel like everything scores around 90? I ran the numbers on 130,000 professional reviews.</p>
-  <p class="byline">By Jeremy Lee</p>
+<div class="wrap">
+  <header>
+    <p class="house">A data story on 129,971 Wine Enthusiast reviews</p>
+    <h1>The 100-point wine scale uses about eight points</h1>
+    <p class="lede">Nothing is published below 80, and 85.7% of all wines score between 84 and 92.</p>
 
-  <div class="stats">
-    <div class="stat"><div class="n">80</div><div class="l">the hard floor: nothing lower is ever published</div></div>
-    <div class="stat"><div class="n">86%</div><div class="l">of all wines score between 84 and 92</div></div>
-    <div class="stat"><div class="n">3.1 pts</div><div class="l">gap between the most and least generous reviewers</div></div>
+    <div class="scale">
+      <svg viewBox="0 0 640 150" role="img" aria-label="A scale from 0 to 100. Everything below 80 is unused; 85.7 percent of wines sit in the band from 84 to 92.">
+        <rect class="unused" x="20" y="78" width="480" height="14" />
+        <text class="unused-label" x="260" y="68" text-anchor="middle">0 to 79: never published</text>
+        <rect class="band" x="524" y="54" width="48" height="38" />
+        <text class="label" x="548" y="40" text-anchor="middle">85.7%</text>
+        <line class="axis" x1="20" y1="92" x2="620" y2="92" stroke-width="2" />
+        <g class="tick">
+          <text x="20" y="114" text-anchor="middle">0</text>
+          <text x="320" y="114" text-anchor="middle">50</text>
+          <text x="500" y="114" text-anchor="middle">80</text>
+          <text x="524" y="134" text-anchor="middle">84</text>
+          <text x="572" y="134" text-anchor="middle">92</text>
+          <text x="620" y="114" text-anchor="middle">100</text>
+        </g>
+      </svg>
+    </div>
+    <p class="byline">By Jeremy Lee · Python, pandas, SciPy, matplotlib</p>
+  </header>
+
+  <ol class="findings">
+    <li><div class="n">80</div><p>The lowest score in the dataset. The bottom four fifths of the scale are never used.</p></li>
+    <li><div class="n">85.7%</div><p>of wines score between 84 and 92. The mean is 88.45 and the median is 88.</p></li>
+    <li><div class="n">r = 0.61</div><p>between points and log price. Wines near $10 average 85.3 points and wines near $100 average 91.9.</p></li>
+    <li><div class="n">3.1 pts</div><p>between the most and least generous of the ten most prolific tasters (86.9 against 90.0), about half of what a tenfold price step buys.</p></li>
+  </ol>
+
+  <p class="course">First</p>
+  <h2>A floor at 80 and a hump in the high 80s</h2>
+  <p>The scores form a narrow hump that starts at a cliff. No review below 80 is published, which is the magazine's editorial choice. When the bottom of a scale is never printed and most wines fall in an eight-point band, a 90 tells you less than it seems to.</p>
+  <figure><img src="figures/01_distribution.png" width="1720" height="960" alt="Histogram of wine points with a hard left edge at 80 and most wines between 84 and 92."><figcaption>Every wine's score: a wall at 80 and a pile around 88.</figcaption></figure>
+
+  <p class="course">Second</p>
+  <h2>Money buys points, at a falling rate</h2>
+  <p>Points correlate with log price at r = 0.61. Going from about $10 to about $100 raises the average from 85.3 to 91.9, a gain of 6.6 points, and the curve flattens after $100. The cheap end of the market is where each dollar buys the most points.</p>
+  <figure><img src="figures/02_price_vs_points.png" width="1720" height="960" alt="Average points by price bin on a log scale, rising steeply and then flattening above one hundred dollars."><figcaption>Average points by price bin on a log axis.</figcaption></figure>
+
+  <p class="course">Third</p>
+  <h2>Vintage barely matters</h2>
+  <p>If newer wines were scored more kindly, average points would climb with vintage. From 1995 to 2016 the fitted slope is 0.09 points per decade, close to flat. The compression is in how the scale is used.</p>
+  <figure><img src="figures/03_by_vintage.png" width="1720" height="919" alt="Average points by vintage from 1995 to 2016, a nearly flat line."><figcaption>Average score by vintage year.</figcaption></figure>
+
+  <p class="course">Fourth</p>
+  <h2>The taster moves the number</h2>
+  <p>Among the ten tasters with the most reviews, average scores run from 86.9 to 90.0. That 3.1-point spread is more than a third of the band where most wines sit.</p>
+  <figure><img src="figures/04_by_taster.png" width="1720" height="1000" alt="Bar chart of average points for the ten most prolific tasters, from 86.9 to 90.0."><figcaption>Average points awarded by the ten most prolific tasters.</figcaption></figure>
+
+  <h2>Reading a wine score</h2>
+  <p>Treat the number as a coarse signal. The gap between an 88 and a 90 is about the same size as the gap between two tasters, so it says little on its own. If you shop for value, the low end of the price curve is where points are cheapest.</p>
+
+  <div class="method">
+    <h3>Data and method</h3>
+    <p>The public <code>winemag-data-130k-v2</code> Wine Enthusiast dataset (<a href="https://www.kaggle.com/datasets/zynicide/wine-reviews">Kaggle</a>, downloaded from a GitHub mirror), 129,971 reviews. Vintage is parsed from each wine's title.</p>
+    <p>Limitation: this is one snapshot from one publication with no review dates, so it cannot measure scores drifting upward over time. The inflation measured here is structural: an 80 floor, a narrow band, and the price, vintage and taster effects inside it. Reproduce with <code>fetch_data.py</code> and <code>analyze.py</code> in the <a href="https://github.com/lyhjeremy/wine-score-inflation">repo</a>.</p>
   </div>
 
-  <h2>A 100-point scale that's really an 8-point scale</h2>
-  <p>Wine is scored from 50 to 100, but in practice that scale barely exists. Across ~130,000 Wine Enthusiast reviews, <strong>nothing is published below 80</strong>, the average is 88, and <strong>86% of all wines fall between 84 and 92</strong>. Almost the entire "100-point" range is dead space. When failing grades are never printed and everything clusters in an 8-point band, a high score stops meaning much.</p>
-  <figure><img src="figures/01_distribution.png" alt="Histogram of wine points, floored at 80 and bunched around 88"><figcaption>Every wine's score. A hard wall at 80 and a tight pile around 88: grade inflation, in one chart.</figcaption></figure>
-
-  <h2>Money buys points, with steep diminishing returns</h2>
-  <p>Price and score are related (correlation 0.61 against log-price), but you pay dearly for each point. A roughly <strong>$10 wine averages about 85 points; a $100 wine averages about 92</strong>. Spending ten times as much buys you, on average, about seven points, and most of those points come early.</p>
-  <figure><img src="figures/02_price_vs_points.png" alt="Average points rising with price on a log scale, then flattening"><figcaption>Average points by price (log scale). The curve rises fast then flattens: diminishing returns on every extra dollar.</figcaption></figure>
-
-  <h2>It's not a "recent vintages are better" effect</h2>
-  <p>You might guess the scores have crept up over time. They haven't: average points are <strong>essentially flat across vintages</strong> (about 0.09 points per decade). The compression isn't a recency trend. It's baked into how the scale is used.</p>
-  <figure><img src="figures/03_by_vintage.png" alt="Average points by vintage, nearly a flat line"><figcaption>Average score by vintage year: basically a flat line. The inflation is structural, not generational.</figcaption></figure>
-
-  <h2>The reviewer matters as much as the wine</h2>
-  <p>Who tastes the wine moves the number. Among the most prolific reviewers, average scores range across <strong>3.1 points</strong>, roughly the same boost you'd get by paying ten times more for the bottle.</p>
-  <figure><img src="figures/04_by_taster.png" alt="Bar chart of average points by reviewer, spanning about 3 points"><figcaption>Average points awarded by the ten most prolific reviewers: a real, systematic spread.</figcaption></figure>
-
-  <div class="findings">
-    <h3>The findings</h3>
-    <ul>
-      <li>Scores are <strong>floored at 80</strong> and <strong>86% land in 84–92</strong>: the 100-point scale is effectively ~8 points wide.</li>
-      <li>Points track <strong>log-price (r = 0.61)</strong> with steep diminishing returns: ~$10 → ≈85 pts, ~$100 → ≈92 pts.</li>
-      <li>Average score is <strong>flat across vintages</strong> (~0.09 pts/decade). The compression is structural.</li>
-      <li>The <strong>reviewer adds a 3.1-point spread</strong>, as much as a 10× price jump.</li>
-    </ul>
-  </div>
-
-  <h2>What to do with a wine score</h2>
-  <p>Treat the number as a coarse signal, not a verdict. The gap between an 88 and a 90 is mostly noise: vintage, reviewer, and rounding. If you're hunting value, the early part of the price curve is where the points are cheapest, which is exactly the thread I pull on in my <a href="https://github.com/lyhjeremy">New World vs Old World wine value</a> work.</p>
-
-  <div class="note"><strong>Data &amp; method:</strong> the public "winemag-data-130k-v2" Wine Enthusiast dataset (~130k reviews; <a href="https://www.kaggle.com/datasets/zynicide/wine-reviews">Kaggle</a>, via a GitHub mirror). Vintage parsed from each wine's title. <strong>Caveat:</strong> this is a single snapshot from one publication, so it can't measure score drift by <em>review date</em> over time. The "inflation" here is the structural compression of the scale (an 80 floor and a narrow band), plus the price, vintage, and reviewer effects, not a year-over-year creep. Reproduce with <code>fetch_data.py</code> + <code>analyze.py</code> in the <a href="https://github.com/lyhjeremy/wine-score-inflation">repo</a>.</div>
-
-  <p class="footer">Built with Python (pandas, scipy, matplotlib) · © 2026 Jeremy Lee · MIT License · <a href="https://github.com/lyhjeremy/wine-score-inflation">source on GitHub</a></p>
+  <footer>MIT License · © 2026 Jeremy Lee · <a href="overview/">Full writeup</a> · <a href="https://github.com/lyhjeremy/wine-score-inflation">Source on GitHub</a></footer>
 </div>
 </body>
 </html>
