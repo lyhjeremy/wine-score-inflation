@@ -1,6 +1,6 @@
-# Wine Score Inflation
+# Wine score inflation
 
-A data study of 129,971 Wine Enthusiast reviews showing that the 100-point wine scale is, in practice, about eight points wide.
+A study of 129,971 Wine Enthusiast reviews. The 100-point wine scale turns out to be about eight points wide in practice.
 
 [Live site](https://lyhjeremy.github.io/wine-score-inflation/) · [Write-up](https://lyhjeremy.github.io/wine-score-inflation/overview/)
 
@@ -52,7 +52,7 @@ python analyze.py        # writes figures/ and tables/summary.csv
 
 ## Limitations
 
-The data is the public `winemag-data-130k-v2` set (Kaggle, through a GitHub mirror): one snapshot from one publication, with no review dates. It cannot show scores creeping upward over time. The inflation it measures is structural: an 80 floor and a narrow band, plus the price, vintage and taster effects inside that band. Wines whose titles carry no year drop out of the vintage chart only. Taster means are raw, so they mix taster generosity with the regions and price points each taster covers.
+The data is the public `winemag-data-130k-v2` set (Kaggle, through a GitHub mirror), which is one snapshot from one publication with no review dates, so it cannot show scores creeping upward over time. The inflation it measures is structural (an 80 floor and a narrow band) plus the price, vintage and taster effects inside that band. Wines whose titles carry no year drop out of the vintage chart only. Taster means are raw, so they mix taster generosity with the regions and price points each taster covers.
 
 ## License
 
