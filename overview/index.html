@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Wine score inflation: the 100-point scale that works as 8 points</title>
-<meta name="description" content="In 129,971 Wine Enthusiast reviews, nothing is published below 80 and 85.7% of wines score between 84 and 92. Points rise with log price (r = 0.61) and flatten past $100." />
+<meta name="description" content="In 129,971 Wine Enthusiast reviews, nothing is published below 80 and 85.7% of wines score between 84 and 92. Points rise with log price (r = 0.61), about two points for each doubling of price." />
 <meta name="theme-color" content="#F1ECE3" />
 <meta property="og:title" content="The 100-point wine scale uses about eight points" />
 <meta property="og:description" content="129,971 professional wine reviews. Nothing below 80, and 85.7% of wines between 84 and 92." />
@@ -241,7 +241,8 @@
   .route::before, .stop::before { display: none; }
   .stop { padding-left: 0; }
   .stop + .stop { border-top: 1px solid var(--rule); padding-top: 56px; }
-  .bignum { font-weight: 600; letter-spacing: -.01em; }
+  .bignum { font-weight: 600; letter-spacing: -.01em;
+            line-height: 1.02; margin-bottom: 14px; }  /* Cormorant descenders hit the note at .86 */
 
 
   .bignum { line-height: 1.02; margin-bottom: 14px; }
@@ -259,6 +260,51 @@
 </style>
 </head>
 <body>
+<style>
+  /* page-specific: shelf-tag reader and the three linked charts */
+  .tag { margin: 34px auto 0; max-width: 40rem; border: 1px solid var(--edge); background: var(--card); padding: 22px 24px 18px; }
+  .tag h3 { font-family: var(--display); font-weight: 600; font-size: 28px; text-align: center; margin: 0; letter-spacing: .01em; }
+  .tag .sub { font-family: var(--display); font-style: italic; font-weight: 500; font-size: 18px; text-align: center; color: var(--ink2); margin: 2px 0 16px; }
+  .tag .inputs { display: grid; gap: 14px 22px; }
+  @media (min-width: 620px) { .tag .inputs { grid-template-columns: 1fr 1fr; } }
+  .tag label { display: block; font: 600 12px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .tag .row { display: flex; align-items: center; gap: 10px; }
+  .tag input[type=range] { flex: 1; min-width: 0; accent-color: var(--accent); }
+  .tag output { font-family: var(--display); font-weight: 600; font-size: 38px; line-height: 1; min-width: 3.2ch; text-align: right; color: var(--ink); }
+  .tag .readings { margin: 18px 0 0; border-top: 1px solid var(--rule); padding-top: 8px; }
+  .tag .readings .r { display: flex; align-items: baseline; gap: 8px; padding: 7px 0; }
+  .tag .readings dt { font-family: var(--serif); font-size: 17px; color: var(--ink); flex: 0 1 auto; }
+  .tag .readings .lead { flex: 1 1 auto; border-bottom: 2px dotted var(--edge); transform: translateY(-5px); min-width: 18px; }
+  .tag .readings dd { margin: 0; font-family: var(--display); font-weight: 600; font-size: 24px; color: var(--accent); flex: none; }
+  .tag .verdict { font-family: var(--display); font-style: italic; font-weight: 500; font-size: 19px; color: var(--ink2); text-align: center; margin: 12px 0 0; min-height: 2.6em; }
+  .chart { width: 100%; touch-action: pan-y; margin-top: 18px; }
+  .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .chart text { font-family: var(--sans); font-size: 12px; fill: var(--muted); }
+  .chart .grid { stroke: var(--rule); }
+  .chart .base { stroke: var(--edge); }
+  .chart .bar { fill: color-mix(in srgb, var(--accent) 58%, var(--paper)); }
+  .chart .bar.in { fill: var(--accent); }
+  .chart .bar.you { fill: var(--accent2); }
+  .chart .band { fill: color-mix(in srgb, var(--accent2) 10%, transparent); }
+  .chart .ann { fill: var(--ink2); font-size: 12.5px; }
+  .chart .ann.it { font-family: var(--display); font-style: italic; font-size: 17px; font-weight: 500; }
+  .chart .line { fill: none; stroke: var(--accent); stroke-width: 2.4; }
+  .chart .dot { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
+  .chart .you { fill: var(--accent2); }
+  .chart .youl { stroke: var(--accent2); stroke-width: 1.5; stroke-dasharray: 3 3; }
+  .chart .trend { stroke: var(--ink2); stroke-width: 1.4; stroke-dasharray: 5 4; }
+  .chart .tdot { fill: var(--accent); }
+  .chart .tname { fill: var(--ink); font-size: 12.5px; }
+  .chart .tval { font: 400 12px var(--mono); fill: var(--ink2); }
+  .chart .stem { stroke: var(--rule); stroke-width: 1; }
+  .hover { font-family: var(--sans); font-size: 14.5px; color: var(--ink2); min-height: 1.5em; margin: 6px 0 0; }
+  .pair { display: grid; gap: 30px 44px; margin-top: 18px; }
+  @media (min-width: 860px) { .pair { grid-template-columns: 1fr 1fr; } }
+  .pair h3 { font-family: var(--display); font-size: 24px; font-weight: 600; margin: 0; }
+  .pair .sub { font-family: var(--display); font-style: italic; font-size: 17px; color: var(--ink2); margin: 0; }
+  .winelist { margin: 30px auto 0; max-width: 34rem; padding: 22px 26px 18px; border: 1px solid var(--edge); background: var(--card); }
+</style>
+
 <div class="wrap">
   <header class="masthead">
     <div class="logo"><span class="dot" aria-hidden="true"></span>Wine Score Inflation</div>
@@ -270,11 +316,10 @@
     <h1>The 100-point wine scale uses about eight points</h1>
 
     <p class="hero-sub">
-      In the public winemag dataset of 129,971 Wine Enthusiast reviews, no wine
-      is published below <strong>80</strong>, and <strong>85.7%</strong> of them
-      score between <strong>84 and 92</strong>. Inside that band, price buys
-      points at a falling rate, vintage changes almost nothing, and the ten most
-      prolific reviewers differ by <strong>3.1 points</strong> on average.
+      Of 129,971 Wine Enthusiast reviews, none is published below <strong>80</strong> and
+      <strong>85.7%</strong> land between <strong>84 and 92</strong>. Inside that band,
+      each doubling of price buys about two points, vintage changes almost nothing, and the
+      ten most prolific reviewers differ by <strong>3.1 points</strong> on average.
     </p>
 
     <div class="cta-row">
@@ -285,22 +330,19 @@
     <div class="claims">
       <div class="claim">
         <div class="n">80</div>
-        <p>is the lowest score in the dataset. The usable scale starts four fifths
-           of the way up.</p>
+        <p>The lowest score in the dataset. The usable scale starts four fifths of the way up.</p>
       </div>
       <div class="claim">
         <div class="n">85.7%</div>
-        <p>of wines score between 84 and 92, a band eight points wide.</p>
+        <p>Of wines score between 84 and 92, a band eight points wide.</p>
       </div>
       <div class="claim">
         <div class="n">r = 0.61</div>
-        <p>between points and log price. Wines near $10 average 85.3 points;
-           wines near $100 average 91.9.</p>
+        <p>Between points and log price. Wines near $10 average 85.3 points; wines near $100 average 91.9.</p>
       </div>
       <div class="claim">
         <div class="n">3.1 pts</div>
-        <p>between the most and least generous of the ten most prolific
-           tasters (86.9 against 90.0).</p>
+        <p>Between the most and least generous of the ten most prolific tasters (86.9 against 90.0).</p>
       </div>
     </div>
   </section>
@@ -313,17 +355,136 @@
     <p class="eyebrow">The question</p>
     <h2>What does 92 points mean?</h2>
     <p>
-      A shelf tag that says 92 reads like a grade out of 100. That reading
-      assumes the scale has a bottom half in use and that 92 sits well above the
-      middle of it. The dataset lets both assumptions be checked.
+      A shelf tag that says 92 reads like a grade out of 100. That reading assumes the scale
+      has a bottom half in use and that 92 sits well above the middle of it. Each review in
+      the dataset has a score, a price, a title (which usually carries the vintage) and the
+      taster's name, which is enough to check both assumptions.
     </p>
     <p>
-      Each of the 129,971 reviews has a score, a price, a title (which usually
-      carries the vintage year) and the name of the taster. That is enough to
-      ask three things: how much of the scale is used, what a point costs, and
-      how much of a score depends on who wrote it.
+      Set the score and price from a bottle you have seen. The readings come from the full
+      set of reviews; the charts further down move with them.
     </p>
 
+    <div class="tag" role="group" aria-labelledby="ws-tag-h">
+      <h3 id="ws-tag-h">Read a shelf tag</h3>
+      <p class="sub">against 129,971 reviews</p>
+      <div class="inputs">
+        <div>
+          <label for="ws-score">Score on the tag</label>
+          <div class="row"><input id="ws-score" type="range" min="80" max="100" step="1" value="92" /><output id="ws-score-o" for="ws-score">92</output></div>
+        </div>
+        <div>
+          <label for="ws-price">Price</label>
+          <div class="row"><input id="ws-price" type="range" min="0" max="1000" step="1" value="0" aria-valuetext="$25" /><output id="ws-price-o" for="ws-price">$25</output></div>
+        </div>
+      </div>
+      <dl class="readings">
+        <div class="r"><dt>Reviewed wines scoring lower</dt><span class="lead" aria-hidden="true"></span><dd id="ws-below"></dd></div>
+        <div class="r"><dt>Scoring the same or higher</dt><span class="lead" aria-hidden="true"></span><dd id="ws-above"></dd></div>
+        <div class="r"><dt id="ws-typ-l">Typical score at this price</dt><span class="lead" aria-hidden="true"></span><dd id="ws-typ"></dd></div>
+      </dl>
+      <p class="verdict" id="ws-verdict" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section class="stop stop--key">
+    <p class="eyebrow">The shape of the scale</p>
+    <h2>A floor at 80 and a hump in the high 80s</h2>
+
+    <div class="bignum">8 pts</div>
+    <p class="bignum-note">The width of the band that holds 85.7% of all wines.</p>
+
+    <p>
+      The scores form a narrow hump that starts at a cliff. Nothing below 80 is published,
+      which is the magazine's editorial choice and says nothing about the wines. The mean is
+      88.45 and the median is 88. A scale can be inflated in this structural sense without
+      any year-on-year creep: the bottom four fifths simply never get printed.
+    </p>
+    <figure>
+      <div class="chart" id="ws-hist"></div>
+      <p class="hover" id="ws-hist-h" aria-live="polite"></p>
+      <noscript><div class="plate"><img width="1720" height="960" src="../figures/01_distribution.png"
+        alt="Histogram of wine scores with a hard left edge at 80, a tall peak between 86 and 90, and a thin tail toward 100." /></div></noscript>
+      <figcaption>Reviews at each score, from <code>tables/chart_data.json</code>. The 84 to 92 band is
+        shaded and the score on your tag is in olive. Hover a bar for its count.</figcaption>
+    </figure>
+  </section>
+
+  <section class="stop">
+    <p class="eyebrow">What money buys</p>
+    <h2>Each doubling of price buys about two points</h2>
+    <p>
+      Against the logarithm of price the correlation is <strong>r = 0.61</strong>, strong for
+      data this noisy. On a log axis the curve over twenty equal-count price bins is close to
+      a straight line: $10 to $20 adds 2.6 points, and $50 to about $114 adds 2.0. In dollars
+      that is a steep diminishing return. A tenfold step from about <strong>$10 to about
+      $100</strong> moves the average from <strong>85.3 to 91.9</strong>, and the first ten
+      dollars of that step buy more points than the last fifty.
+    </p>
+    <figure>
+      <div class="chart" id="ws-price-c"></div>
+      <p class="hover" id="ws-price-h" aria-live="polite"></p>
+      <noscript><div class="plate"><img width="1720" height="960" src="../figures/02_price_vs_points.png"
+        alt="Average points by price bin on a logarithmic price axis, rising from about 85 at ten dollars to about 92 at one hundred dollars." /></div></noscript>
+      <figcaption>Mean points in each of 20 equal-count price bins, $4 to $500, plotted at the bin's
+        median price on a log axis. The top bin runs from $85 to $500, so the chart says nothing
+        about how scores move above $100. Hover for a bin.</figcaption>
+    </figure>
+  </section>
+
+  <section class="stop">
+    <p class="eyebrow">Vintage and taster</p>
+    <h2>Vintage barely moves the score. The taster moves it more.</h2>
+    <p>
+      Average score by vintage, 1995 to 2016, is close to flat: a fitted slope of
+      <strong>0.09 points per decade</strong>. Good and bad years exist for a given region,
+      but they don't show in the mean of a catalog this broad.
+    </p>
+    <p>
+      Among the ten tasters with the most reviews, average scores run from <strong>86.9 to
+      90.0</strong>. That 3.1-point spread is about half of what a tenfold price increase
+      buys, and more than a third of the band where most wines sit, from a change of author
+      alone.
+    </p>
+    <div class="pair">
+      <figure style="margin:0">
+        <h3>By vintage</h3>
+        <p class="sub">0.09 points per decade</p>
+        <div class="chart" id="ws-vin"></div>
+        <p class="hover" id="ws-vin-h" aria-live="polite"></p>
+        <figcaption>Mean score per vintage year, with the fitted trend dashed. Early vintages
+          rest on few reviews (50 for 1995); hover for counts.</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <h3>By taster</h3>
+        <p class="sub">86.9 to 90.0</p>
+        <div class="chart" id="ws-tas"></div>
+        <figcaption>Mean score of the ten tasters with the most reviews. Hover a dot for the
+          taster's review count.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="stop stop--warn">
+    <p class="eyebrow">Limitations</p>
+    <h2>One magazine, one snapshot</h2>
+    <p>
+      All of this comes from a single snapshot of one publication. The dataset has no review
+      date, so it cannot show scores creeping upward over time, which is what most people
+      mean by grade inflation. What it can show is the structural version: an 80 floor, a
+      compressed band, and a stated range that is mostly unused.
+    </p>
+    <p>
+      Vintage is pulled from each wine's title with a regular expression. Titles without a
+      year drop out of the vintage chart and stay in every other view. The taster comparison
+      is a raw mean, so a taster who covers more expensive regions will look more generous
+      for that reason alone. The price views leave out reviews with no price.
+    </p>
+  </section>
+
+  <section class="stop stop--end">
+    <p class="eyebrow">How it was built</p>
+    <h2>Where the numbers come from</h2>
     <div class="winelist" role="group" aria-label="Summary statistics from tables/summary.csv">
       <h3>The scale, by the glass</h3>
       <p class="sub">from tables/summary.csv</p>
@@ -339,118 +500,13 @@
         <div class="row"><dt>Taster means, low to high</dt><span class="lead" aria-hidden="true"></span><dd>86.9 to 90.0</dd></div>
       </dl>
     </div>
-  </section>
-
-  <section class="stop stop--key">
-    <p class="eyebrow">The shape of the scale</p>
-    <h2>A floor at 80 and a hump in the high 80s</h2>
-
-    <div class="bignum">8 pts</div>
-    <p class="bignum-note">the width of the band that holds 85.7% of all wines.</p>
-
-    <p>
-      The scores form a narrow hump that starts at a cliff, and everything below
-      the cliff is empty. Nothing below 80 is published, which is an
-      editorial choice by the magazine and says nothing about the wines. The
-      mean is 88.45 and the median is 88.
-    </p>
-    <p>
-      That is inflation in a structural sense: a scale can say nothing at the
-      bottom without any year-on-year creep, simply because nobody prints a score there.
-    </p>
-    <figure>
-      <div class="plate">
-        <img width="1720" height="960" src="../figures/01_distribution.png" fetchpriority="high"
-          alt="Histogram of wine scores with a hard left edge at 80, a tall peak between 86 and 90, and a thin tail toward 100." />
-      </div>
-      <figcaption>The published distribution: a cliff at 80, most wines in the high 80s.</figcaption>
-    </figure>
-  </section>
-
-  <section class="stop">
-    <p class="eyebrow">What money buys</p>
-    <h2>Price works, on a log scale</h2>
-    <p>
-      Expensive wine does score higher. Against the logarithm of price the
-      correlation is <strong>r = 0.61</strong>, which is strong for data this
-      noisy. A tenfold step from about <strong>$10 to about $100</strong> moves
-      the average from <strong>85.3 to 91.9</strong>, a gain of 6.6 points. The
-      price chart (twenty equal-count price bins between $4 and $500) flattens
-      after $100.
-    </p>
-    <p>
-      For a buyer, the cheap end of the curve is where each extra dollar buys
-      the most points.
-    </p>
-    <figure>
-      <div class="plate">
-        <img width="1720" height="960" src="../figures/02_price_vs_points.png" loading="lazy"
-          alt="Average points by price bin on a logarithmic price axis, rising steeply at the low end and flattening above about one hundred dollars." />
-      </div>
-      <figcaption>Average points by price bin, log axis. The curve flattens past $100.</figcaption>
-    </figure>
-  </section>
-
-  <section class="stop">
-    <p class="eyebrow">Vintage and taster</p>
-    <h2>Vintage barely moves the score. The taster moves it more.</h2>
-    <p>
-      Average score by vintage, 1995 to 2016, is close to flat: a fitted slope of
-      <strong>0.09 points per decade</strong>. Good and bad years may exist for a
-      given region, but they do not show up in the mean of a catalog this
-      broad.
-    </p>
-    <p>
-      Among the ten tasters with the most reviews, average scores run from
-      <strong>86.9 to 90.0</strong>, a spread of 3.1 points. That is about half
-      of what a tenfold price increase buys, and more than a third of the
-      band where most wines sit, from a change of author alone.
-    </p>
-    <div class="panels">
-      <figure>
-        <div class="plate">
-          <img width="1720" height="919" src="../figures/03_by_vintage.png" loading="lazy"
-            alt="Mean score by vintage year from 1995 to 2016, an almost horizontal line with small year-to-year wobble and a nearly flat fitted trend." />
-        </div>
-        <figcaption>Vintage: about 0.09 points per decade.</figcaption>
-      </figure>
-      <figure>
-        <div class="plate">
-          <img width="1720" height="1000" src="../figures/04_by_taster.png" loading="lazy"
-            alt="Mean score for each of the ten most prolific tasters, ranging from 86.9 to 90.0 points." />
-        </div>
-        <figcaption>Taster: 3.1 points between the lowest and highest mean.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="stop stop--warn">
-    <p class="eyebrow">Limitations</p>
-    <h2>One magazine, one snapshot</h2>
-    <p>
-      All of this comes from a single snapshot of one publication. The dataset
-      has no review date, so it cannot show scores creeping upward over time,
-      which is what most people mean by grade inflation. What it can show is the
-      structural version: an 80 floor, a compressed band, and a stated range that
-      is mostly unused.
-    </p>
-    <p>
-      Vintage is pulled from each wine's title with a regular expression. Titles
-      without a year drop out of the vintage chart and stay in every other view.
-      The taster comparison is a raw mean, so a taster who reviews more expensive
-      regions will look more generous for that reason alone.
-    </p>
-  </section>
-
-  <section class="stop stop--end">
-    <p class="eyebrow">How it was built</p>
-    <h2>Where the numbers come from</h2>
     <dl class="specs">
       <div class="spec"><dt>Data</dt><dd>The public <code>winemag-data-130k-v2</code> Wine Enthusiast dataset, downloaded from a GitHub mirror by <code>fetch_data.py</code></dd></div>
       <div class="spec"><dt>Sample</dt><dd>129,971 reviews with score, price, title and taster</dd></div>
       <div class="spec"><dt>Price model</dt><dd>Pearson correlation of points against log10 price, $4 to $500; averages at $9 to $11 and $90 to $110</dd></div>
       <div class="spec"><dt>Vintage</dt><dd>Year parsed from the title; linear fit of mean score on vintage, 1995 to 2016</dd></div>
       <div class="spec"><dt>Tasters</dt><dd>Mean score for the ten tasters with the most reviews</dd></div>
+      <div class="spec"><dt>Charts</dt><dd><code>chart_data.py</code> writes the score counts, price bins, vintage and taster means to <code>tables/chart_data.json</code> with the same filters as <code>analyze.py</code>; the page draws them as plain SVG</dd></div>
       <div class="spec"><dt>Built with</dt><dd>Python, pandas, SciPy, matplotlib</dd></div>
       <div class="spec"><dt>Related</dt><dd>The same reviews are the retrieval index in <a href="https://lyhjeremy.github.io/wine-sommelier-rag/">Wine Sommelier RAG</a> and the search tool inside the <a href="https://lyhjeremy.github.io/wine-pairing-agent/">Wine Pairing Agent</a></dd></div>
     </dl>
@@ -478,5 +534,164 @@
     <p>Review data from the public winemag-data-130k-v2 dataset.</p>
   </footer>
 </div>
+
+<script>
+(function () {
+  // from tables/chart_data.json (written by chart_data.py)
+  var CD = {"hist":[[80,397],[81,692],[82,1836],[83,3025],[84,6480],[85,9530],[86,12600],[87,16933],[88,17207],[89,12226],[90,15410],[91,11359],[92,9613],[93,6489],[94,3758],[95,1535],[96,523],[97,229],[98,77],[99,33],[100,19]],"price":[[10.0,85.024,6280,4.0,10.0],[12.0,85.692,5992,10.0,12.0],[13.0,86.254,6764,12.0,14.0],[15.0,86.655,6066,14.0,15.0],[16.0,87.079,6600,15.0,17.0],[18.0,87.25,4883,17.0,18.0],[20.0,87.612,9756,18.0,20.0],[22.0,87.886,4589,20.0,22.0],[24.0,87.993,4541,22.0,24.0],[25.0,88.21,5805,24.0,25.0],[28.0,88.353,5841,25.0,28.0],[30.0,88.654,6338,28.0,30.0],[34.0,89.028,7777,30.0,35.0],[37.0,89.289,3647,35.0,38.0],[40.0,89.568,6393,38.0,42.0],[45.0,90.057,6010,42.0,48.0],[50.0,90.394,7067,48.0,55.0],[60.0,90.773,5598,55.0,65.0],[75.0,91.297,5486,65.0,85.0],[114.0,92.378,5451,85.0,500.0]],"vintage":[[1995,89.4,50],[1996,88.463,67],[1997,89.116,303],[1998,87.501,551],[1999,87.616,641],[2000,87.402,758],[2001,87.392,691],[2002,87.814,366],[2003,88.405,598],[2004,88.762,1774],[2005,88.352,3613],[2006,88.216,5772],[2007,88.163,7053],[2008,88.204,7439],[2009,88.334,9875],[2010,88.262,12165],[2011,88.278,12552],[2012,88.774,15746],[2013,88.952,15874],[2014,88.867,15582],[2015,88.519,10051],[2016,87.687,3691]],"tasters":[["Michael Schachner",86.907,15134],["Anna Lee C. Iijima",88.416,4415],["Joe Czerwinski",88.536,5147],["Jim Gordon",88.626,4177],["Roger Voss",88.708,25514],["Sean P. Sullivan",88.756,4966],["Kerin O\u2019Keefe",88.868,10776],["Paul Gregutt",89.083,9532],["Virginie Boone",89.213,9537],["Matt Kettmann",90.009,6332]]};
+  var NS = "http://www.w3.org/2000/svg";
+  function el(t, a, p) { var e = document.createElementNS(NS, t); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+  function tx(s, a, p) { var e = el("text", a, p); e.textContent = s; return e; }
+  function fmt(n) { return n.toLocaleString("en-US"); }
+  var total = CD.hist.reduce(function (s, h) { return s + h[1]; }, 0);
+  var score = 92, price = 25;
+  var sIn = document.getElementById("ws-score"), pIn = document.getElementById("ws-price");
+  var LMIN = Math.log10(4), LMAX = Math.log10(500);
+  function sliderToPrice(v) { var p = Math.pow(10, LMIN + v / 1000 * (LMAX - LMIN)); return p < 20 ? Math.round(p) : p < 100 ? Math.round(p) : Math.round(p / 5) * 5; }
+  function priceToSlider(p) { return Math.round((Math.log10(p) - LMIN) / (LMAX - LMIN) * 1000); }
+  pIn.value = priceToSlider(price);
+  function typical(p) {
+    var B = CD.price, lp = Math.log10(p);
+    if (p <= B[0][0]) return { v: B[0][1], edge: "low" };
+    if (p >= B[B.length - 1][0]) return { v: B[B.length - 1][1], edge: "high" };
+    for (var i = 1; i < B.length; i++) if (p <= B[i][0]) {
+      var a = Math.log10(B[i - 1][0]), b = Math.log10(B[i][0]), f = (lp - a) / (b - a);
+      return { v: B[i - 1][1] + f * (B[i][1] - B[i - 1][1]), edge: null };
+    }
+  }
+  function costOf(s) {
+    var B = CD.price;
+    for (var i = 1; i < B.length; i++) if (s >= B[i - 1][1] && s <= B[i][1]) {
+      var f = (s - B[i - 1][1]) / (B[i][1] - B[i - 1][1]), lp = Math.log10(B[i - 1][0]) + f * (Math.log10(B[i][0]) - Math.log10(B[i - 1][0]));
+      return Math.round(Math.pow(10, lp));
+    }
+    return null;
+  }
+  function pct(x) { return (x * 100 < 1 && x > 0) ? (x * 100).toFixed(1) + "%" : Math.round(x * 100) + "%"; }
+  function read() {
+    document.getElementById("ws-score-o").textContent = score;
+    document.getElementById("ws-price-o").textContent = "$" + price;
+    pIn.setAttribute("aria-valuetext", "$" + price);
+    var below = 0, atup = 0;
+    CD.hist.forEach(function (h) { if (h[0] < score) below += h[1]; else atup += h[1]; });
+    document.getElementById("ws-below").textContent = pct(below / total);
+    document.getElementById("ws-above").textContent = pct(atup / total);
+    var t = typical(price), B = CD.price;
+    document.getElementById("ws-typ-l").textContent = t.edge === "low" ? "Typical score, cheapest bin ($4 to $10)" :
+      t.edge === "high" ? "Typical score, top bin ($85 to $500)" : "Typical score at $" + price;
+    document.getElementById("ws-typ").textContent = t.v.toFixed(1);
+    var d = score - t.v, v;
+    if (Math.abs(d) < 0.5) v = "About what a wine at this price usually gets.";
+    else if (d > 0) v = d.toFixed(1) + " points above the average for its price.";
+    else v = (-d).toFixed(1) + " points below the average for its price.";
+    var c = costOf(score);
+    if (c) v += " Wines that typically score " + score + " sit around $" + c + " on the price curve.";
+    else if (score > B[B.length - 1][1]) v += " Even the top price bin ($85 to $500) averages only " + B[B.length - 1][1].toFixed(1) + ".";
+    document.getElementById("ws-verdict").textContent = v;
+    drawHist(); drawPrice();
+  }
+
+  var hBox = document.getElementById("ws-hist"), hH = document.getElementById("ws-hist-h"), hov = null;
+  function drawHist() {
+    var W = Math.max(300, hBox.clientWidth), small = W < 520, H = small ? 230 : 290;
+    var m = { l: small ? 40 : 50, r: 8, t: 30, b: 34 }, pw = W - m.l - m.r, ph = H - m.t - m.b;
+    var max = Math.max.apply(null, CD.hist.map(function (h) { return h[1]; }));
+    var bw = pw / 21, X = function (s) { return m.l + (s - 80) * bw; }, Y = function (c) { return m.t + ph - c / (max * 1.06) * ph; };
+    hBox.textContent = "";
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": "Number of reviews at each score from 80 to 100. Nothing is below 80; the peak is at 87 and 88; 85.7 percent fall from 84 to 92." }, hBox);
+    el("rect", { x: X(84), y: m.t - 18, width: 9 * bw, height: ph + 18, "class": "band" }, svg);
+    tx("84 to 92: 85.7%", { x: X(88.5), y: m.t - 6, "text-anchor": "middle", "class": "ann it" }, svg);
+    [0, 5000, 10000, 15000].forEach(function (c) {
+      el("line", { x1: m.l, x2: m.l + pw, y1: Y(c), y2: Y(c), "class": c ? "grid" : "base" }, svg);
+      tx(c ? (c / 1000) + "k" : "0", { x: m.l - 6, y: Y(c) + 4, "text-anchor": "end" }, svg);
+    });
+    CD.hist.forEach(function (h) {
+      var cls = "bar" + (h[0] === score ? " you" : h[0] >= 84 && h[0] <= 92 ? " in" : "");
+      el("rect", { x: X(h[0]) + 1, y: Y(h[1]), width: bw - 2, height: Y(0) - Y(h[1]), "class": cls }, svg);
+      if (!small || h[0] % 2 === 0) tx(String(h[0]), { x: X(h[0]) + bw / 2, y: H - 16, "text-anchor": "middle" }, svg);
+    });
+    tx("Score", { x: m.l + pw, y: H - 1, "text-anchor": "end" }, svg);
+    var hit = el("rect", { x: m.l, y: 0, width: pw, height: H, fill: "transparent" }, svg);
+    hit.addEventListener("pointermove", function (ev) {
+      var b = svg.getBoundingClientRect(), x = (ev.clientX - b.left) * (W / b.width), s = Math.floor((x - m.l) / bw) + 80;
+      var h = CD.hist.filter(function (q) { return q[0] === s; })[0];
+      if (h) hH.textContent = h[0] + " points: " + fmt(h[1]) + " reviews (" + (h[1] / total * 100).toFixed(1) + "%).";
+    });
+    if (!hH.textContent) { var h0 = CD.hist.filter(function (q) { return q[0] === 88; })[0]; hH.textContent = "88 points, the median: " + fmt(h0[1]) + " reviews (" + (h0[1] / total * 100).toFixed(1) + "%)."; }
+  }
+
+  var pBox = document.getElementById("ws-price-c"), pH = document.getElementById("ws-price-h");
+  function drawPrice() {
+    var W = Math.max(300, pBox.clientWidth), small = W < 520, H = small ? 250 : 300;
+    var m = { l: 40, r: 14, t: 16, b: 36 }, pw = W - m.l - m.r, ph = H - m.t - m.b;
+    var lx0 = Math.log10(4), lx1 = Math.log10(500), y0 = 84, y1 = 93.5;
+    var X = function (p) { return m.l + (Math.log10(p) - lx0) / (lx1 - lx0) * pw; }, Y = function (v) { return m.t + (1 - (v - y0) / (y1 - y0)) * ph; };
+    pBox.textContent = "";
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": "Mean points by price bin on a log price axis, rising almost in a straight line from 85.0 at a median of $10 to 92.4 at a median of $114." }, pBox);
+    [85, 87, 89, 91, 93].forEach(function (v) { el("line", { x1: m.l, x2: m.l + pw, y1: Y(v), y2: Y(v), "class": "grid" }, svg); tx(String(v), { x: m.l - 6, y: Y(v) + 4, "text-anchor": "end" }, svg); });
+    [5, 10, 20, 50, 100, 200, 500].forEach(function (p) { el("line", { x1: X(p), x2: X(p), y1: m.t + ph, y2: m.t + ph + 5, "class": "base" }, svg); tx("$" + p, { x: X(p), y: m.t + ph + 19, "text-anchor": "middle" }, svg); });
+    el("line", { x1: m.l, x2: m.l + pw, y1: m.t + ph, y2: m.t + ph, "class": "base" }, svg);
+    var d = CD.price.map(function (b, i) { return (i ? "L" : "M") + X(b[0]).toFixed(1) + "," + Y(b[1]).toFixed(1); }).join("");
+    el("path", { d: d, "class": "line" }, svg);
+    CD.price.forEach(function (b) { el("circle", { cx: X(b[0]), cy: Y(b[1]), r: 3.6, "class": "dot" }, svg); });
+    var t = typical(price);
+    el("line", { x1: X(price), x2: X(price), y1: m.t, y2: m.t + ph, "class": "youl" }, svg);
+    el("circle", { cx: X(price), cy: Y(t.v), r: 6, "class": "you" }, svg);
+    if (score >= y0) el("rect", { x: X(price) - 5, y: Y(Math.min(score, y1)) - 5, width: 10, height: 10, "class": "you" }, svg);
+    var lab = "$" + price + ": tag " + score + ", typical " + t.v.toFixed(1);
+    tx(lab, { x: X(price) + (X(price) > m.l + pw * 0.6 ? -10 : 10), y: m.t + 14, "text-anchor": X(price) > m.l + pw * 0.6 ? "end" : "start", "class": "ann" }, svg);
+    var hit = el("rect", { x: m.l, y: 0, width: pw, height: H, fill: "transparent" }, svg);
+    hit.addEventListener("pointermove", function (ev) {
+      var r = svg.getBoundingClientRect(), x = (ev.clientX - r.left) * (W / r.width), best = null, bd = 1e9;
+      CD.price.forEach(function (b) { var dd = Math.abs(X(b[0]) - x); if (dd < bd) { bd = dd; best = b; } });
+      pH.textContent = "$" + best[3] + " to $" + best[4] + " (median $" + best[0] + "): " + best[1].toFixed(1) + " points on average, " + fmt(best[2]) + " reviews.";
+    });
+    if (!pH.textContent) { var b = CD.price[0]; pH.textContent = "Cheapest bin, $4 to $10: " + b[1].toFixed(1) + " points on average, " + fmt(b[2]) + " reviews."; }
+  }
+
+  var vBox = document.getElementById("ws-vin"), vH = document.getElementById("ws-vin-h");
+  function drawVin() {
+    var V = CD.vintage, W = Math.max(280, vBox.clientWidth), H = 220, m = { l: 36, r: 10, t: 12, b: 28 }, pw = W - m.l - m.r, ph = H - m.t - m.b;
+    var X = function (y) { return m.l + (y - 1995) / 21 * pw; }, Y = function (v) { return m.t + (1 - (v - 86.5) / 3.5) * ph; };
+    vBox.textContent = "";
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": "Mean score by vintage, 1995 to 2016, between about 87.4 and 89.4 with a nearly flat trend." }, vBox);
+    [87, 88, 89, 90].forEach(function (v) { el("line", { x1: m.l, x2: m.l + pw, y1: Y(v), y2: Y(v), "class": "grid" }, svg); tx(String(v), { x: m.l - 6, y: Y(v) + 4, "text-anchor": "end" }, svg); });
+    [1995, 2000, 2005, 2010, 2015].forEach(function (y) { tx(String(y), { x: X(y), y: H - 8, "text-anchor": "middle" }, svg); });
+    var n = V.length, sx = 0, sy = 0, sxx = 0, sxy = 0;
+    V.forEach(function (v) { sx += v[0]; sy += v[1]; sxx += v[0] * v[0]; sxy += v[0] * v[1]; });
+    var sl = (n * sxy - sx * sy) / (n * sxx - sx * sx), ic = (sy - sl * sx) / n;
+    el("line", { x1: X(1995), x2: X(2016), y1: Y(ic + sl * 1995), y2: Y(ic + sl * 2016), "class": "trend" }, svg);
+    el("path", { d: V.map(function (v, i) { return (i ? "L" : "M") + X(v[0]).toFixed(1) + "," + Y(v[1]).toFixed(1); }).join(""), "class": "line" }, svg);
+    V.forEach(function (v) { el("circle", { cx: X(v[0]), cy: Y(v[1]), r: v[2] < 500 ? 2.6 : 3.6, "class": "dot" }, svg); });
+    var hit = el("rect", { x: m.l, y: 0, width: pw, height: H, fill: "transparent" }, svg);
+    hit.addEventListener("pointermove", function (ev) {
+      var r = svg.getBoundingClientRect(), x = (ev.clientX - r.left) * (W / r.width), yr = Math.round(1995 + (x - m.l) / pw * 21);
+      var v = V.filter(function (q) { return q[0] === yr; })[0];
+      if (v) vH.textContent = v[0] + " vintage: " + v[1].toFixed(2) + " points, " + fmt(v[2]) + " reviews.";
+    });
+    vH.textContent = vH.textContent || "Trend: " + (sl * 10).toFixed(2) + " points per decade.";
+  }
+  var tBox = document.getElementById("ws-tas");
+  function drawTas() {
+    var T = CD.tasters.slice().reverse(), W = Math.max(280, tBox.clientWidth), rh = 22, H = rh * T.length + 30;
+    var m = { l: 4, r: 8, t: 6 }, x0 = 86.5, x1 = 90.3, lw = Math.min(150, W * 0.45), pw = W - lw - m.r - 60;
+    var X = function (v) { return lw + 60 + (v - x0) / (x1 - x0) * pw; };
+    tBox.textContent = "";
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": "Mean score for the ten most prolific tasters, from 86.9 for Michael Schachner to 90.0 for Matt Kettmann." }, tBox);
+    [87, 88, 89, 90].forEach(function (v) { el("line", { x1: X(v), x2: X(v), y1: m.t, y2: H - 22, "class": "grid" }, svg); tx(String(v), { x: X(v), y: H - 6, "text-anchor": "middle" }, svg); });
+    T.forEach(function (t, i) {
+      var y = m.t + i * rh + rh / 2;
+      tx(t[0], { x: m.l, y: y + 4, "class": "tname" }, svg);
+      tx(t[1].toFixed(1), { x: lw + 50, y: y + 4, "text-anchor": "end", "class": "tval" }, svg);
+      el("line", { x1: X(x0), x2: X(t[1]), y1: y, y2: y, "class": "stem" }, svg);
+      el("circle", { cx: X(t[1]), cy: y, r: 4.5, "class": "tdot" }, svg).appendChild(document.createElementNS(NS, "title")).textContent = fmt(t[2]) + " reviews";
+    });
+  }
+  sIn.addEventListener("input", function () { score = +sIn.value; read(); });
+  pIn.addEventListener("input", function () { price = sliderToPrice(+pIn.value); read(); });
+  var rt; window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { read(); drawVin(); drawTas(); }, 120); });
+  read(); drawVin(); drawTas();
+})();
+</script>
 </body>
 </html>

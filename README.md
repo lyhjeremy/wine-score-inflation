@@ -28,7 +28,7 @@ Design and copy follow [these standards](https://github.com/lyhjeremy/lyhjeremy/
 3. Vintage: mean score per vintage from 1995 to 2016 and a linear fit (`scipy.stats.linregress`) through those means.
 4. Tasters: the mean score of each of the ten tasters with the most reviews.
 
-Every number above is written to `tables/summary.csv` and drawn in `figures/`.
+Every number above is written to `tables/summary.csv` and drawn in `figures/`. `chart_data.py` writes the small aggregates behind the write-up's interactive charts (score counts, the 20 price bins, vintage and taster means) to `tables/chart_data.json`, using the same filters.
 
 Stack: Python, pandas, NumPy, SciPy, matplotlib.
 
@@ -38,6 +38,7 @@ Stack: Python, pandas, NumPy, SciPy, matplotlib.
 pip install -r requirements.txt
 python fetch_data.py     # downloads the ~130k-review CSV to data/ (git-ignored)
 python analyze.py        # writes figures/ and tables/summary.csv
+python chart_data.py     # writes tables/chart_data.json for the write-up charts
 ```
 
 ## Repo layout
