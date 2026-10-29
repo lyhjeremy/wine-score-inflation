@@ -1,7 +1,7 @@
 """
 analyze.py - Wine Score Inflation: the 100-point scale that isn't
 =================================================================
-Using ~130k Wine Enthusiast reviews, we ask what a wine "score" really means:
+Using about 120k unique Wine Enthusiast reviews, we ask what a wine "score" really means:
 how compressed the scale is, what a point costs, whether recent vintages score
 higher, and how much the reviewer matters.
 
@@ -24,7 +24,8 @@ plt.rcParams.update({"figure.dpi": 200, "savefig.dpi": 200, "font.size": 12,
 
 
 def load():
-    df = pd.read_csv(os.path.join(HERE, "data", "winemag-data-130k-v2.csv"))
+    df = pd.read_csv(os.path.join(HERE, "data", "winemag-data-130k-v2.csv"), index_col=0)
+    df = df.drop_duplicates()  # the source file repeats 9,983 reviews word for word; count each once
     df["points"] = pd.to_numeric(df["points"], errors="coerce")
     df["price"] = pd.to_numeric(df["price"], errors="coerce")
     df["vintage"] = df["title"].str.extract(r"(19\d\d|20[01]\d)").astype(float)
@@ -64,7 +65,7 @@ def main():
     ax.plot(g.price, g.points, "-o", color=WINE, lw=2.4, ms=6)
     ax.set_xscale("log")
     ax.set_xlabel("Price (USD, log scale)"); ax.set_ylabel("Average points")
-    ax.set_title("Money buys points — but with steep diminishing returns", color=INK, weight="bold")
+    ax.set_title("Money buys points, but with steep diminishing returns", color=INK, weight="bold")
     ax.text(0.05, 0.9, f"points vs log(price): r = {r:.2f}", transform=ax.transAxes, fontsize=11)
     p10, p100 = d[d.price.between(9, 11)].points.mean(), d[d.price.between(90, 110)].points.mean()
     fig.tight_layout(); fig.savefig(f"{FIG}/02_price_vs_points.png"); plt.close(fig)

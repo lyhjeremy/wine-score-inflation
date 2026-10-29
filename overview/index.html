@@ -4,13 +4,12 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Wine score inflation: the 100-point scale that works as 8 points</title>
-<meta name="description" content="In 129,971 Wine Enthusiast reviews, nothing is published below 80 and 85.7% of wines score between 84 and 92. Points rise with log price (r = 0.61), about two points for each doubling of price." />
+<meta name="description" content="In 119,988 unique Wine Enthusiast reviews, nothing is published below 80 and 85.0% of wines score between 84 and 92. Points rise with log price (r = 0.62), about two points for each doubling of price." />
 <meta name="theme-color" content="#F1ECE3" />
 <meta property="og:title" content="The 100-point wine scale uses about eight points" />
-<meta property="og:description" content="129,971 professional wine reviews. Nothing below 80, and 85.7% of wines between 84 and 92." />
+<meta property="og:description" content="119,988 professional wine reviews. Nothing below 80, and 85.0% of wines between 84 and 92." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://lyhjeremy.github.io/wine-score-inflation/overview/" />
-<link href="" rel="stylesheet" />
 <style>
   :root {
     --paper: #F1ECE3;
@@ -308,7 +307,7 @@
 <div class="wrap">
   <header class="masthead">
     <div class="logo"><span class="dot" aria-hidden="true"></span>Wine Score Inflation</div>
-    <div class="tagline">129,971 Wine Enthusiast reviews</div>
+    <div class="tagline">119,988 Wine Enthusiast reviews</div>
   </header>
 
   <section class="hero">
@@ -316,10 +315,10 @@
     <h1>The 100-point wine scale uses about eight points</h1>
 
     <p class="hero-sub">
-      Of 129,971 Wine Enthusiast reviews, none is published below <strong>80</strong> and
-      <strong>85.7%</strong> land between <strong>84 and 92</strong>. Inside that band,
+      Of 119,988 unique Wine Enthusiast reviews, none is published below <strong>80</strong> and
+      <strong>85.0%</strong> land between <strong>84 and 92</strong>. Inside that band,
       each doubling of price buys about two points, vintage changes almost nothing, and the
-      ten most prolific reviewers differ by <strong>3.1 points</strong> on average.
+      ten most prolific reviewers differ by <strong>3.2 points</strong> on average.
     </p>
 
     <div class="cta-row">
@@ -333,16 +332,16 @@
         <p>The lowest score in the dataset. The usable scale starts four fifths of the way up.</p>
       </div>
       <div class="claim">
-        <div class="n">85.7%</div>
+        <div class="n">85.0%</div>
         <p>Of wines score between 84 and 92, a band eight points wide.</p>
       </div>
       <div class="claim">
-        <div class="n">r = 0.61</div>
-        <p>Between points and log price. Wines near $10 average 85.3 points; wines near $100 average 91.9.</p>
+        <div class="n">r = 0.62</div>
+        <p>Between points and log price. Wines near $10 average 85.2 points; wines near $100 average 91.9.</p>
       </div>
       <div class="claim">
-        <div class="n">3.1 pts</div>
-        <p>Between the most and least generous of the ten most prolific tasters (86.9 against 90.0).</p>
+        <div class="n">3.2 pts</div>
+        <p>Between the most and least generous of the ten most prolific tasters (86.9 against 90.1).</p>
       </div>
     </div>
   </section>
@@ -367,7 +366,7 @@
 
     <div class="tag" role="group" aria-labelledby="ws-tag-h">
       <h3 id="ws-tag-h">Read a shelf tag</h3>
-      <p class="sub">against 129,971 reviews</p>
+      <p class="sub">against 119,988 reviews</p>
       <div class="inputs">
         <div>
           <label for="ws-score">Score on the tag</label>
@@ -392,12 +391,12 @@
     <h2>A floor at 80 and a hump in the high 80s</h2>
 
     <div class="bignum">8 pts</div>
-    <p class="bignum-note">The width of the band that holds 85.7% of all wines.</p>
+    <p class="bignum-note">The width of the band that holds 85.0% of all wines.</p>
 
     <p>
       The scores form a narrow hump that starts at a cliff. Nothing below 80 is published,
       which is the magazine's editorial choice and says nothing about the wines. The mean is
-      88.45 and the median is 88. A scale can be inflated in this structural sense without
+      88.44 and the median is 88. A scale can be inflated in this structural sense without
       any year-on-year creep: the bottom four fifths simply never get printed.
     </p>
     <figure>
@@ -414,11 +413,11 @@
     <p class="eyebrow">What money buys</p>
     <h2>Each doubling of price buys about two points</h2>
     <p>
-      Against the logarithm of price the correlation is <strong>r = 0.61</strong>, strong for
+      Against the logarithm of price the correlation is <strong>r = 0.62</strong>, strong for
       data this noisy. On a log axis the curve over twenty equal-count price bins is close to
-      a straight line: $10 to $20 adds 2.6 points, and $50 to about $114 adds 2.0. In dollars
+      a straight line: $10 to $20 adds 2.6 points, and $50 to about $115 adds 2.0. In dollars
       that is a steep diminishing return. A tenfold step from about <strong>$10 to about
-      $100</strong> moves the average from <strong>85.3 to 91.9</strong>, and the first ten
+      $100</strong> moves the average from <strong>85.2 to 91.9</strong>, and the first ten
       dollars of that step buy more points than the last fifty.
     </p>
     <figure>
@@ -437,19 +436,19 @@
     <h2>Vintage barely moves the score. The taster moves it more.</h2>
     <p>
       Average score by vintage, 1995 to 2016, is close to flat: a fitted slope of
-      <strong>0.09 points per decade</strong>. Good and bad years exist for a given region,
+      <strong>0.08 points per decade</strong>. Good and bad years exist for a given region,
       but they don't show in the mean of a catalog this broad.
     </p>
     <p>
       Among the ten tasters with the most reviews, average scores run from <strong>86.9 to
-      90.0</strong>. That 3.1-point spread is about half of what a tenfold price increase
+      90.1</strong>. That 3.2-point spread is about half of what a tenfold price increase
       buys, and more than a third of the band where most wines sit, from a change of author
       alone.
     </p>
     <div class="pair">
       <figure style="margin:0">
         <h3>By vintage</h3>
-        <p class="sub">0.09 points per decade</p>
+        <p class="sub">0.08 points per decade</p>
         <div class="chart" id="ws-vin"></div>
         <p class="hover" id="ws-vin-h" aria-live="polite"></p>
         <figcaption>Mean score per vintage year, with the fitted trend dashed. Early vintages
@@ -457,7 +456,7 @@
       </figure>
       <figure style="margin:0">
         <h3>By taster</h3>
-        <p class="sub">86.9 to 90.0</p>
+        <p class="sub">86.9 to 90.1</p>
         <div class="chart" id="ws-tas"></div>
         <figcaption>Mean score of the ten tasters with the most reviews. Hover a dot for the
           taster's review count.</figcaption>
@@ -480,6 +479,14 @@
       is a raw mean, so a taster who covers more expensive regions will look more generous
       for that reason alone. The price views leave out reviews with no price.
     </p>
+    <p>
+      Correction, 2026-10-29: the source file repeats 9,983 reviews word for word, and earlier
+      versions of this page counted each of them twice. With the repeats removed, the share
+      scoring 84 to 92 went from 85.7% to 85.0%, r from 0.61 to 0.62, the $10 average from 85.3
+      to 85.2, the mean from 88.45 to 88.44, the vintage trend from 0.09 to 0.08 points per
+      decade, and the top taster mean from 90.0 to 90.1 (spread 3.1 to 3.2). The 80 floor, the
+      median of 88 and the $100 average of 91.9 did not change.
+    </p>
   </section>
 
   <section class="stop stop--end">
@@ -489,20 +496,20 @@
       <h3>The scale, by the glass</h3>
       <p class="sub">from tables/summary.csv</p>
       <dl>
-        <div class="row"><dt>Reviews scored</dt><span class="lead" aria-hidden="true"></span><dd>129,971</dd></div>
+        <div class="row"><dt>Reviews scored</dt><span class="lead" aria-hidden="true"></span><dd>119,988</dd></div>
         <div class="row"><dt>Lowest score published</dt><span class="lead" aria-hidden="true"></span><dd>80</dd></div>
-        <div class="row"><dt>Mean score</dt><span class="lead" aria-hidden="true"></span><dd>88.45</dd></div>
-        <div class="row"><dt>Share scoring 84 to 92</dt><span class="lead" aria-hidden="true"></span><dd>85.7%</dd></div>
-        <div class="row"><dt>Average at about $10</dt><span class="lead" aria-hidden="true"></span><dd>85.3</dd></div>
+        <div class="row"><dt>Mean score</dt><span class="lead" aria-hidden="true"></span><dd>88.44</dd></div>
+        <div class="row"><dt>Share scoring 84 to 92</dt><span class="lead" aria-hidden="true"></span><dd>85.0%</dd></div>
+        <div class="row"><dt>Average at about $10</dt><span class="lead" aria-hidden="true"></span><dd>85.2</dd></div>
         <div class="row"><dt>Average at about $100</dt><span class="lead" aria-hidden="true"></span><dd>91.9</dd></div>
-        <div class="row"><dt>Points against log price</dt><span class="lead" aria-hidden="true"></span><dd>r = 0.61</dd></div>
-        <div class="row"><dt>Drift per decade of vintage</dt><span class="lead" aria-hidden="true"></span><dd>0.09</dd></div>
-        <div class="row"><dt>Taster means, low to high</dt><span class="lead" aria-hidden="true"></span><dd>86.9 to 90.0</dd></div>
+        <div class="row"><dt>Points against log price</dt><span class="lead" aria-hidden="true"></span><dd>r = 0.62</dd></div>
+        <div class="row"><dt>Drift per decade of vintage</dt><span class="lead" aria-hidden="true"></span><dd>0.08</dd></div>
+        <div class="row"><dt>Taster means, low to high</dt><span class="lead" aria-hidden="true"></span><dd>86.9 to 90.1</dd></div>
       </dl>
     </div>
     <dl class="specs">
       <div class="spec"><dt>Data</dt><dd>The public <code>winemag-data-130k-v2</code> Wine Enthusiast dataset, downloaded from a GitHub mirror by <code>fetch_data.py</code></dd></div>
-      <div class="spec"><dt>Sample</dt><dd>129,971 reviews with score, price, title and taster</dd></div>
+      <div class="spec"><dt>Sample</dt><dd>119,988 unique reviews with score, price, title and taster; the source file has 129,971 rows and repeats 9,983 of them, which <code>analyze.py</code> drops</dd></div>
       <div class="spec"><dt>Price model</dt><dd>Pearson correlation of points against log10 price, $4 to $500; averages at $9 to $11 and $90 to $110</dd></div>
       <div class="spec"><dt>Vintage</dt><dd>Year parsed from the title; linear fit of mean score on vintage, 1995 to 2016</dd></div>
       <div class="spec"><dt>Tasters</dt><dd>Mean score for the ten tasters with the most reviews</dd></div>
@@ -538,7 +545,7 @@
 <script>
 (function () {
   // from tables/chart_data.json (written by chart_data.py)
-  var CD = {"hist":[[80,397],[81,692],[82,1836],[83,3025],[84,6480],[85,9530],[86,12600],[87,16933],[88,17207],[89,12226],[90,15410],[91,11359],[92,9613],[93,6489],[94,3758],[95,1535],[96,523],[97,229],[98,77],[99,33],[100,19]],"price":[[10.0,85.024,6280,4.0,10.0],[12.0,85.692,5992,10.0,12.0],[13.0,86.254,6764,12.0,14.0],[15.0,86.655,6066,14.0,15.0],[16.0,87.079,6600,15.0,17.0],[18.0,87.25,4883,17.0,18.0],[20.0,87.612,9756,18.0,20.0],[22.0,87.886,4589,20.0,22.0],[24.0,87.993,4541,22.0,24.0],[25.0,88.21,5805,24.0,25.0],[28.0,88.353,5841,25.0,28.0],[30.0,88.654,6338,28.0,30.0],[34.0,89.028,7777,30.0,35.0],[37.0,89.289,3647,35.0,38.0],[40.0,89.568,6393,38.0,42.0],[45.0,90.057,6010,42.0,48.0],[50.0,90.394,7067,48.0,55.0],[60.0,90.773,5598,55.0,65.0],[75.0,91.297,5486,65.0,85.0],[114.0,92.378,5451,85.0,500.0]],"vintage":[[1995,89.4,50],[1996,88.463,67],[1997,89.116,303],[1998,87.501,551],[1999,87.616,641],[2000,87.402,758],[2001,87.392,691],[2002,87.814,366],[2003,88.405,598],[2004,88.762,1774],[2005,88.352,3613],[2006,88.216,5772],[2007,88.163,7053],[2008,88.204,7439],[2009,88.334,9875],[2010,88.262,12165],[2011,88.278,12552],[2012,88.774,15746],[2013,88.952,15874],[2014,88.867,15582],[2015,88.519,10051],[2016,87.687,3691]],"tasters":[["Michael Schachner",86.907,15134],["Anna Lee C. Iijima",88.416,4415],["Joe Czerwinski",88.536,5147],["Jim Gordon",88.626,4177],["Roger Voss",88.708,25514],["Sean P. Sullivan",88.756,4966],["Kerin O\u2019Keefe",88.868,10776],["Paul Gregutt",89.083,9532],["Virginie Boone",89.213,9537],["Matt Kettmann",90.009,6332]]};
+  var CD = {"hist":[[80,397],[81,689],[82,1814],[83,2963],[84,6225],[85,9067],[86,11526],[87,15279],[88,15291],[89,11147],[90,13893],[91,10559],[92,8951],[93,6170],[94,3625],[95,1514],[96,521],[97,228],[98,77],[99,33],[100,19]],"price":[[10.0,84.971,5916,4.0,10.0],[12.0,85.625,5572,10.0,12.0],[13.0,86.187,6222,12.0,14.0],[15.0,86.593,5557,14.0,15.0],[16.0,87.022,6059,15.0,17.0],[18.0,87.2,4507,17.0,18.0],[20.0,87.572,8914,18.0,20.0],[22.0,87.859,4231,20.0,22.0],[24.0,87.971,4133,22.0,24.0],[25.0,88.19,5320,24.0,25.0],[28.0,88.317,5368,25.0,28.0],[30.0,88.649,5780,28.0,30.0],[34.0,89.031,7110,30.0,35.0],[38.0,89.359,4188,35.0,39.0],[40.0,89.602,5041,39.0,42.0],[45.0,90.085,5565,42.0,48.0],[50.0,90.428,6547,48.0,55.0],[60.0,90.821,5171,55.0,65.0],[75.0,91.349,5104,65.0,85.0],[115.0,92.44,5197,85.0,500.0]],"vintage":[[1995,89.4,50],[1996,88.463,67],[1997,89.142,302],[1998,87.504,550],[1999,87.609,639],[2000,87.391,752],[2001,87.386,684],[2002,87.807,358],[2003,88.441,574],[2004,88.758,1714],[2005,88.346,3485],[2006,88.215,5566],[2007,88.168,6733],[2008,88.213,7020],[2009,88.346,9279],[2010,88.274,11288],[2011,88.273,11548],[2012,88.774,14360],[2013,88.951,14326],[2014,88.886,13998],[2015,88.508,8969],[2016,87.638,3310]],"tasters":[["Michael Schachner",86.857,14046],["Anna Lee C. Iijima",88.416,4017],["Joe Czerwinski",88.524,4766],["Jim Gordon",88.604,3766],["Roger Voss",88.733,23560],["Sean P. Sullivan",88.755,4461],["Kerin O\u2019Keefe",88.898,9697],["Paul Gregutt",89.094,8868],["Virginie Boone",89.221,8708],["Matt Kettmann",90.061,5730]]};
   var NS = "http://www.w3.org/2000/svg";
   function el(t, a, p) { var e = document.createElementNS(NS, t); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
   function tx(s, a, p) { var e = el("text", a, p); e.textContent = s; return e; }
@@ -598,9 +605,9 @@
     var max = Math.max.apply(null, CD.hist.map(function (h) { return h[1]; }));
     var bw = pw / 21, X = function (s) { return m.l + (s - 80) * bw; }, Y = function (c) { return m.t + ph - c / (max * 1.06) * ph; };
     hBox.textContent = "";
-    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": "Number of reviews at each score from 80 to 100. Nothing is below 80; the peak is at 87 and 88; 85.7 percent fall from 84 to 92." }, hBox);
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": "Number of reviews at each score from 80 to 100. Nothing is below 80; the peak is at 87 and 88; 85.0 percent fall from 84 to 92." }, hBox);
     el("rect", { x: X(84), y: m.t - 18, width: 9 * bw, height: ph + 18, "class": "band" }, svg);
-    tx("84 to 92: 85.7%", { x: X(88.5), y: m.t - 6, "text-anchor": "middle", "class": "ann it" }, svg);
+    tx("84 to 92: 85.0%", { x: X(88.5), y: m.t - 6, "text-anchor": "middle", "class": "ann it" }, svg);
     [0, 5000, 10000, 15000].forEach(function (c) {
       el("line", { x1: m.l, x2: m.l + pw, y1: Y(c), y2: Y(c), "class": c ? "grid" : "base" }, svg);
       tx(c ? (c / 1000) + "k" : "0", { x: m.l - 6, y: Y(c) + 4, "text-anchor": "end" }, svg);
@@ -627,7 +634,7 @@
     var lx0 = Math.log10(4), lx1 = Math.log10(500), y0 = 84, y1 = 93.5;
     var X = function (p) { return m.l + (Math.log10(p) - lx0) / (lx1 - lx0) * pw; }, Y = function (v) { return m.t + (1 - (v - y0) / (y1 - y0)) * ph; };
     pBox.textContent = "";
-    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": "Mean points by price bin on a log price axis, rising almost in a straight line from 85.0 at a median of $10 to 92.4 at a median of $114." }, pBox);
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": "Mean points by price bin on a log price axis, rising almost in a straight line from 85.0 at a median of $10 to 92.4 at a median of $115." }, pBox);
     [85, 87, 89, 91, 93].forEach(function (v) { el("line", { x1: m.l, x2: m.l + pw, y1: Y(v), y2: Y(v), "class": "grid" }, svg); tx(String(v), { x: m.l - 6, y: Y(v) + 4, "text-anchor": "end" }, svg); });
     [5, 10, 20, 50, 100, 200, 500].forEach(function (p) { el("line", { x1: X(p), x2: X(p), y1: m.t + ph, y2: m.t + ph + 5, "class": "base" }, svg); tx("$" + p, { x: X(p), y: m.t + ph + 19, "text-anchor": "middle" }, svg); });
     el("line", { x1: m.l, x2: m.l + pw, y1: m.t + ph, y2: m.t + ph, "class": "base" }, svg);
@@ -677,7 +684,7 @@
     var m = { l: 4, r: 8, t: 6 }, x0 = 86.5, x1 = 90.3, lw = Math.min(150, W * 0.45), pw = W - lw - m.r - 60;
     var X = function (v) { return lw + 60 + (v - x0) / (x1 - x0) * pw; };
     tBox.textContent = "";
-    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": "Mean score for the ten most prolific tasters, from 86.9 for Michael Schachner to 90.0 for Matt Kettmann." }, tBox);
+    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": "Mean score for the ten most prolific tasters, from 86.9 for Michael Schachner to 90.1 for Matt Kettmann." }, tBox);
     [87, 88, 89, 90].forEach(function (v) { el("line", { x1: X(v), x2: X(v), y1: m.t, y2: H - 22, "class": "grid" }, svg); tx(String(v), { x: X(v), y: H - 6, "text-anchor": "middle" }, svg); });
     T.forEach(function (t, i) {
       var y = m.t + i * rh + rh / 2;
