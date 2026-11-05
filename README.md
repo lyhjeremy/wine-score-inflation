@@ -1,6 +1,9 @@
 # Wine score inflation
 
-A study of 119,988 unique Wine Enthusiast reviews (the source file has 129,971 rows and repeats 9,983 of them). The 100-point wine scale turns out to be about eight points wide in practice.
+Wine is scored out of 100, but how much of that scale do critics use?
+In 119,988 unique Wine Enthusiast reviews, nothing is published below 80 and 85.0% of wines score between 84 and 92, so in practice the scale is about eight points wide.
+
+The source file has 129,971 rows and repeats 9,983 of them; the analysis drops the repeats.
 
 [Live site](https://lyhjeremy.github.io/wine-score-inflation/) · [Write-up](https://lyhjeremy.github.io/wine-score-inflation/overview/)
 

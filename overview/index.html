@@ -306,6 +306,14 @@
   @media (min-width: 860px) { .pair { grid-template-columns: 1fr 1fr; } }
   .pair h3 { font-family: var(--display); font-size: 24px; font-weight: 600; margin: 0; }
   .pair .sub { font-family: var(--display); font-style: italic; font-size: 17px; color: var(--ink2); margin: 0; }
+  /* At a glance, set as a wine back label */
+  .backlabel { margin: 34px 0 0; border: 1px solid var(--edge); border-top: 3px double var(--edge); background: var(--card); padding: 16px 22px 14px; }
+  .backlabel h2 { font-family: var(--display); font-style: italic; font-weight: 500; font-size: 21px; margin: 0 0 8px; max-width: none; color: var(--ink2); }
+  .backlabel dl { margin: 0; display: grid; gap: 0 32px; }
+  @media (min-width: 760px) { .backlabel dl { grid-template-columns: 1fr 1fr; } }
+  .backlabel .bl { padding: 7px 0; border-top: 1px solid var(--rule); }
+  .backlabel dt { font: 600 11.5px/1.3 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .backlabel dd { margin: 3px 0 0; font-family: var(--serif); font-size: 16px; line-height: 1.45; color: var(--ink); }
   .winelist { margin: 30px auto 0; max-width: 34rem; padding: 22px 26px 18px; border: 1px solid var(--edge); background: var(--card); }
 </style>
 
@@ -349,6 +357,18 @@
         <p>Between the most and least generous of the ten most prolific tasters (86.9 against 90.1).</p>
       </div>
     </div>
+
+    <section class="backlabel" aria-labelledby="ws-glance">
+      <h2 id="ws-glance">At a glance</h2>
+      <dl>
+        <div class="bl"><dt>Question</dt><dd>How much of the 100-point scale do professional wine scores actually use?</dd></div>
+        <div class="bl"><dt>Data</dt><dd>119,988 unique Wine Enthusiast reviews (129,971 rows, 9,983 exact repeats dropped)</dd></div>
+        <div class="bl"><dt>Method</dt><dd>Score distribution; Pearson r of points on log10 price ($4 to $500); linear fit of mean score on vintage, 1995 to 2016; means for the ten busiest tasters</dd></div>
+        <div class="bl"><dt>Compared against</dt><dd>The scale's stated range of 0 to 100, and the price effect against the vintage trend and the spread between tasters</dd></div>
+        <div class="bl"><dt>Result</dt><dd>Floor at 80; 85.0% score 84 to 92. Price: r = 0.62, 85.2 at $10 to 91.9 at $100. Vintage: 0.08 points per decade. Tasters: 3.2 points apart</dd></div>
+        <div class="bl"><dt>Main limitation</dt><dd>One publication, one snapshot, no review dates: it shows a compressed scale, not scores creeping up over time</dd></div>
+      </dl>
+    </section>
   </section>
 </div>
 
